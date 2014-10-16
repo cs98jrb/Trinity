@@ -1,0 +1,92 @@
+body{
+    font-size: small;
+    font-family: Trebuchet MS,Helvetica,Arial,sans-serif;
+    color: #333333;
+}
+#page_wrap{
+    width: 1256px;
+    margin: auto;
+}
+
+#top {
+    height: 240px;
+}
+
+#menu{
+    font-size: small;
+}
+
+#menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#menu li {
+    display: inline;
+    float: left;
+    width: 12.5%;
+}
+
+#content {
+    font-size: large;
+   float: left;
+   width: 810px;
+   margin-right: 25px;
+}
+
+#content ul {
+    display: table;
+}
+
+#content img {
+    margin: 10px;
+}
+
+#content p {
+    margin: 10px;
+}
+
+#sidebar {
+    float: left;
+    width: 421px;
+}
+
+#foot {
+    position: relative;
+    background-image: url(images/trinity_footer.jpg);
+    clear: both;
+    height: 219px;
+    width: 100%;
+}
+
+#foot p{
+    font-size: small;
+    position: absolute;
+    margin: 0;
+    bottom: 14px;
+    right: 15px;
+   font-weight: bold;
+   color: #f3f3f3;
+   text-shadow: 1px 1px 3px #000;
+}
+
+.inf_box{
+    font-size: medium;
+    clear: both;
+    margin: 10px auto;
+}
+
+.allign_left{
+    text-align: right;
+}
+
+ul li{
+    color: #cc3399;
+    font-weight: bold;
+}
+
+.text_wrap{
+    float: left;
+    margin: 10px;
+}
+

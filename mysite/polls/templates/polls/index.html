@@ -1,0 +1,16 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+
+{% load daguerre %}
+{% adjust 'media/documents/img.jpg' 'fit' width=128 height=128 as image %}
+<img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" />
+{% endblock %}
