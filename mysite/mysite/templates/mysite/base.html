@@ -26,14 +26,12 @@
 <body>
     <div id="page_wrap">
     <div id="top">
-        {% block topbar %}
         <img src="{% static "mysite/images/trinity_header.jpg" %}" alt="Trinity Williams" usemap="#social_media"/>
           <map name="social_media">
             <area shape="rect" coords="894,5,930,41" alt="Facebook" href="http:\\www.facebook.com">
             <area shape="rect" coords="935,5,971,41" alt="Twitter" href="http:\\twitter.com">
             <area shape="rect" coords="976,5,1012,41" alt="Linkedin" href="http:\\linkedin.com">
           </map>
-        {% endblock %}
     </div>
     
     <div id="menu" class="menu">
@@ -49,10 +47,11 @@
         </ul>
     </div>
         <div class="error">
-            {% block menubar %}
+            {% block errors %}
             {% endblock %}
         </div>
     <div id="content">
+        {% block content %}
         <img class="text_wrap" src="{% static "mysite/images/trinity.png" %}" alt="Trinity Williams"/>
         <img src="{% static "mysite/images/welcome.png" %}" alt="Trinity Williams"/>
         <p>My name is Trinity Williams (previously known as Beverly Williams), and I am a spiritual-medium who has helped so many people find the light when they could see only the darkness in their lives.</p>
@@ -78,25 +77,33 @@
             </div>
             <div style="clear: both"></div>
         </div>
-        
+        {% endblock %}
     </div>
     
     <div id="sidebar">
         {% block sidebar %}
+        {% if events_list %}
+            <ul>
+            {% for event in events_list %}
+                <li><a href="/event/{{ event.id }}/">{{ event.town }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No polls are available.</p>
+        {% endif %}
         <div class="inf_box ui-tabs ui-widget ui-widget-content ui-corner-all">
             <h3 class="ui-state-active ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-tabs">Trinity on Tour</h3>
             <div>
-                <p>00/00/00 <strong>Town Name</strong> Venue name <a>Buy Tickets</a></p>
+                <p>00/00/00 <strong>Town Name</strong> Venue name <a class="button">Book tickets</a></p>
                 <hr/>
-                <p>00/00/00 <strong>Town Name</strong> Venue name <a>Buy Tickets</a></p>
+                <p>00/00/00 <strong>Town Name</strong> Venue name <a class="button">Book tickets</a></p>
                 <hr/>
-                <p>00/00/00 <strong>Town Name</strong> Venue name <a>Buy Tickets</a></p>
+                <p>00/00/00 <strong>Town Name</strong> Venue name <a class="button">Book tickets</a></p>
                 <hr/>
-                <p>00/00/00 <strong>Town Name</strong> Venue name <a>Buy Tickets</a></p>
+                <p>00/00/00 <strong>Town Name</strong> Venue name <a class="button">Book tickets</a></p>
                 <hr/>
                 <div class="allign_left">
                     <a class="button">View all dates</a>
-                    <a class="button">Book tickets</a>
                 </div>
             </div>
         </div>
