@@ -36,14 +36,14 @@
     
     <div id="menu" class="menu">
         <ul id="menu_options" class="menu">
-            <li class="menu"><a style="width: 100%" class="menu" href="{{ request.path }}">About Trinity</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{{ request.path }}">Event Dates</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{{ request.path }}">Book a Reading</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{{ request.path }}">Books</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{{ request.path }}">Press</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{{ request.path }}">Serenity Centre</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{{ request.path }}">Blog</a></li>
-            <li class="menu"><a style="width: 99%" class="menu" href="{{ request.path }}">Contact</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="/">About Trinity</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="/events">Event Dates</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="/readings">Book a Reading</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="/books">Books</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="/press">Press</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="/serenity_centre">Serenity Centre</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="/blog">Blog</a></li>
+            <li class="menu"><a style="width: 99%" class="menu" href="/contact">Contact</a></li>
         </ul>
     </div>
         <div class="error">
@@ -82,15 +82,6 @@
     
     <div id="sidebar">
         {% block sidebar %}
-        {% if events_list %}
-            <ul>
-            {% for event in events_list %}
-                <li><a href="/event/{{ event.id }}/">{{ event.town }}</a></li>
-            {% endfor %}
-            </ul>
-        {% else %}
-            <p>No polls are available.</p>
-        {% endif %}
         <div class="inf_box ui-tabs ui-widget ui-widget-content ui-corner-all">
             <h3 class="ui-state-active ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-tabs">Trinity on Tour</h3>
             <div>
