@@ -6,6 +6,9 @@ It exposes the WSGI callable as a module-level variable named ``application``.
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
+activate_this = '/var/www/django/mysite/trinity/bin/activate_this.py'
+execfile(activate_this, dict(__file__=activate_this))
+
 
 import os
 import sys

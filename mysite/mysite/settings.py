@@ -38,8 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'polls',
-    'daguerre',
+    'polls',
+    'events',
 )
 
 MIDDLEWARE_CLASSES = (

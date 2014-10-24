@@ -10,7 +10,5 @@
     <p>No polls are available.</p>
 {% endif %}
 
-{% load daguerre %}
-{% adjust 'media/documents/img.jpg' 'fit' width=128 height=128 as image %}
-<img src="{{ image.url }}" width="{{ image.width }}" height="{{ image.height }}" />
+
 {% endblock %}

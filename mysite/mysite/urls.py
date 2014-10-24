@@ -21,8 +21,7 @@ urlpatterns = patterns('',
     url(r'^contact/', views.coming_soon, name='contact'),
     
     #actual site
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    url(r'^daguerre/', include('daguerre.urls')),
+    #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', include(admin.site.urls)),
 

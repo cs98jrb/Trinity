@@ -1,3 +1,6 @@
 from django.contrib import admin
+from events.models import Event, Venue, Priceing
 
-# Register your models here.
+admin.site.register(Event)
+admin.site.register(Venue)
+admin.site.register(Priceing)
