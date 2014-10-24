@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 def index(request):
     context = {'x': 'test'}
-    return render(request, 'mysite/base.html', context)
+    return render(request, 'mysite/index.html', context)
 
 def coming_soon(request):
     context = {'title': ''}
