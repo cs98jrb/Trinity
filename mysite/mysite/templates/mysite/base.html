@@ -36,14 +36,14 @@
     
     <div id="menu" class="menu">
         <ul id="menu_options" class="menu">
-            <li class="menu"><a style="width: 100%" class="menu" href="/">About Trinity</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="/events">Event Dates</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="/readings">Book a Reading</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="/books">Books</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="/press">Press</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="/serenity_centre">Serenity Centre</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="/blog">Blog</a></li>
-            <li class="menu"><a style="width: 99%" class="menu" href="/contact">Contact</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'home page' %}">About Trinity</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'events:events' %}">Event Dates</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'readings' %}">Book a Reading</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'books' %}">Books</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'press' %}">Press</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'serenity_centre' %}">Serenity Centre</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'blog' %}">Blog</a></li>
+            <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'contact' %}">Contact</a></li>
         </ul>
     </div>
         <div class="error">

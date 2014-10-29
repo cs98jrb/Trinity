@@ -9,10 +9,10 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.index, name='home page'),
     
     #Holding pages
-    url(r'^events/', views.coming_soon, name='events'),
+    url(r'^events/', include('events.urls', namespace="events")),
     url(r'^readings/', views.coming_soon, name='readings'),
     url(r'^books/', views.coming_soon, name='books'),
     url(r'^press/', views.coming_soon, name='press'),
