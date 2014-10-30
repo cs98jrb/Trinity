@@ -3,8 +3,9 @@ from django.db import models
 # Create your models here.
 
 class Venue(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
     address = models.CharField(max_length=200)
+    town = models.CharField(max_length=50)
     postcode = models.CharField(max_length=8,blank=True)
     active = models.BooleanField(default=True)
     def __unicode__(self):              # __unicode__ on Python 2
@@ -19,11 +20,15 @@ class Event(models.Model):
     book_from = models.DateTimeField(blank=True,null=True)
     last_booking = models.DateTimeField()
     pub_date = models.DateTimeField('date published',auto_now_add=True)
+    
+    class Meta:
+        ordering = ['event_time']
+    
     def __unicode__(self):              # __unicode__ on Python 2
         return self.event_time.strftime('%d/%m/%Y @ %H:%M') + " " + self.title + ", " +str(self.venue)
 
 class Priceing(models.Model):
-    event = models.ManyToManyField(Event)
+    event = models.ManyToManyField(Event,null=True,blank=True,)
     title = models.CharField(max_length=50)
     value = models.DecimalField(max_digits=5, decimal_places=2)
     online_book = models.BooleanField(default=True)

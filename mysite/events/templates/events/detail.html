@@ -1,0 +1,8 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+<h2>{{ event.title }}</h2>
+<div>
+    {{ event.description|safe }}
+</div>
+
+{% endblock %}
