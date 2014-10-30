@@ -27,6 +27,14 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
+ADMINS = (('James', 'james@pjshire.me.uk'),)
+
+EMAIL_HOST = 'mail.pjshire.me.uk'
+EMAIL_HOST_USER = 'admin@trinitywilliams.co.uk'
+EMAIL_HOST_PASSWORD = 'd/NMf-j,(Nc$bBP8T%>`'   
+
+SERVER_EMAIL = 'admin@trinitywilliams.co.uk'
+
 ALLOWED_HOSTS = ['mysite',]
 
 # Application definition
@@ -38,7 +46,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'polls',
     'events',
 )
 
@@ -60,11 +67,11 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default': {  
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_db',
-        'USER': 'django',
-        'PASSWORD': 'blackknight',
+        'OPTIONS': {
+            'read_default_file': BASE_DIR+'/db.cnf',
+        },
     }
 }
 

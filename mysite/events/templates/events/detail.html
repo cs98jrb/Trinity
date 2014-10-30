@@ -2,15 +2,7 @@
 {% block content %}
 <h2>{{ event.title }}</h2>
 <div>
-    {{ event.description }}
+    {{ event.description|safe }}
 </div>
-{% if event_list %}
-    {% for event in event_list %}
-    <li><a href="{% url 'events:detail' event.id %}">{{ event.title }}</a> at {{ event.venue}} on <strong>{{ event.event_time|date:"D nS N"}}</strong></li>
-    {% endfor %}
-{% else %}
-    <p>There are no scheduled events.</p>
-{% endif %}
-
 
 {% endblock %}

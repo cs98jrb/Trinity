@@ -11,22 +11,3 @@
     <li>Do you </li>
 </ul>
 {% endblock %}
-
-{% block sidebar %}
-    <div class="inf_box ui-tabs ui-widget ui-widget-content ui-corner-all">
-        <h3 class="ui-state-active ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-tabs">Events</h3>
-        <div>
-            {% if event_list %}
-                {% for event in event_list %}
-                <li style="margin-bottom: 5px;margin-top: 5px;">{{ event.event_time|date:"d/m/y"}} {{ event.venue}} <strong>{{ event.venue.town}}</strong> <a class="button" href="{% url 'events:detail' event.id %}">Details</a></li>
-                {% endfor %}
-            {% else %}
-                <p>There are no scheduled events.</p>
-            {% endif %}
-            <hr/>
-            <div class="allign_left">
-                <a class="button" href="{% url 'events:events' %}">View all dates</a>
-            </div>
-        </div>
-    </div>
-{% endblock %}
