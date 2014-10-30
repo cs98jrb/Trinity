@@ -18,11 +18,10 @@ urlpatterns = patterns('',
     url(r'^press/', views.coming_soon, name='press'),
     url(r'^serenity_centre/', views.coming_soon, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),
-    url(r'^contact/', views.coming_soon, name='contact'),
+    url(r'^contact/', views.contact, name='contact'),
     
     #actual site
     #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    url(r'^polls/', include('polls.urls')),
     url(r'^admin/', include(admin.site.urls)),
 
     #url(r'^events/', views.index, name='events'),

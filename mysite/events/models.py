@@ -21,6 +21,9 @@ class Event(models.Model):
     last_booking = models.DateTimeField()
     pub_date = models.DateTimeField('date published',auto_now_add=True)
     
+    class Meta:
+        ordering = ['event_time']
+    
     def __unicode__(self):              # __unicode__ on Python 2
         return self.event_time.strftime('%d/%m/%Y @ %H:%M') + " " + self.title + ", " +str(self.venue)
 

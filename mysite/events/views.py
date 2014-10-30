@@ -1,8 +1,11 @@
 from django.shortcuts import get_object_or_404, render
 from events.models import Event
+from django.utils import timezone
 
 def index(request):
-    event_list = Event.objects.order_by('pub_date')[:5]
+    event_list = Event.objects.filter(
+        event_time__gte=timezone.now()
+    ).order_by('event_time')[:5]
     
     return render(request, 'events/index.html', {
         'event_list': event_list,
