@@ -3,13 +3,15 @@ from events.models import Event
 from django.utils import timezone
 from django import forms
 
-def index(request):
-    event_list = Event.objects.filter(
-        event_time__gte=timezone.now()
-    )[:5]
-    return render(request, 'mysite/index.html',  {
-        'event_list': event_list,
-    })
+from django.views import generic
+
+class IndexView(generic.ListView):
+    template_name = 'mysite/index.html'
+    
+    def get_queryset(self):
+        return Event.objects.filter(
+            event_time__gte=timezone.now()
+        )[:5]
 
 def coming_soon(request):
     event_list = Event.objects.filter(
@@ -23,6 +25,8 @@ def contact(request):
     event_list = Event.objects.filter(
         event_time__gte=timezone.now()
     )[:5]
+    
+    
     return render(request, 'mysite/contact.html', {
         'event_list': event_list,
     })
