@@ -1,9 +1,9 @@
 {% extends "mysite/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<form action="/your-name/" method="post">
+<form action="{% url 'contact' %}" method="post">
     {% csrf_token %}
     {{ form }}
-    <input type="submit" value="Submit" />
+    <input class="button" type="submit" value="Submit" />
 </form>
 {% endblock %}

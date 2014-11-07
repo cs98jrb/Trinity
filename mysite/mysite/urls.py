@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^$', views.index, name='home page'),
+    url(r'^$', views.IndexView.as_view(), name='home page'),
     
     #Holding pages
     url(r'^events/', include('events.urls', namespace="events")),
@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^press/', views.coming_soon, name='press'),
     url(r'^serenity_centre/', views.coming_soon, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),
-    url(r'^contact/', views.contact, name='contact'),
+    url(r'^contact/', views.ContactForm.as_view(), name='contact'),
     
     #actual site
     #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),

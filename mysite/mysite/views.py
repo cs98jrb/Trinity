@@ -1,9 +1,12 @@
 from django.shortcuts import render
-from events.models import Event
 from django.utils import timezone
 from django import forms
+from django.core.urlresolvers import reverse
 
 from django.views import generic
+
+from events.models import Event
+from mysite.models import EmailInf
 
 class IndexView(generic.ListView):
     template_name = 'mysite/index.html'
@@ -30,8 +33,15 @@ def contact(request):
         'event_list': event_list,
     })
 
-class ContactForm(forms.Form):
-    subject = forms.CharField(max_length=100)
-    message = forms.CharField(widget=forms.Textarea)
-    sender = forms.EmailField()
-    cc_myself = forms.BooleanField(required=False)
+class ContactForm(generic.CreateView):
+    model = EmailInf
+    template_name = 'mysite/contact.html'
+    #form_class = forms.ContactForm
+    def get_success_url(self):
+        return reverse('home page')
+    def get_context_data(self, **kwargs):
+        context = super(ContactForm, self).get_context_data(**kwargs)
+        context['event_list'] = Event.objects.filter(
+            event_time__gte=timezone.now()
+        )[:5]
+        return context
