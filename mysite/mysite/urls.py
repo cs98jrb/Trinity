@@ -11,15 +11,20 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', views.IndexView.as_view(), name='home page'),
     
-    #Holding pages
+    #Event system
     url(r'^events/', include('events.urls', namespace="events")),
+
+    #Holding pages
     url(r'^readings/', views.coming_soon, name='readings'),
     url(r'^books/', views.coming_soon, name='books'),
     url(r'^press/', views.coming_soon, name='press'),
     url(r'^serenity_centre/', views.coming_soon, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),
+
+    #the contact form.
+    url(r'^contact/thanks', views.contact_thanks, name='thank you'),
     url(r'^contact/', views.get_contact, name='contact'),
-    
+
     #actual site
     #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     url(r'^admin/', include(admin.site.urls)),
