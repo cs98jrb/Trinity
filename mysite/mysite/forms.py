@@ -5,7 +5,6 @@ from mysite.models import EmailInf
 
 
 class ContactForm(forms.ModelForm):
-
     confirm_email = forms.EmailField(
         label="Confirm email",
         required=True,
@@ -13,11 +12,15 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = EmailInf
+        fields = ['name', 'email', 'confirm_email', 'message', ]
 
-    def __init__(self, *args, **kwargs):
+    def clean(self):
 
-        if kwargs.get('instance'):
-            email = kwargs['instance'].email
-            kwargs.setdefault('initial', {})['confirm_email'] = email
+        if (self.cleaned_data.get('email') !=
+            self.cleaned_data.get('confirm_email')):
 
-        return super(ContactForm, self).__init__(*args, **kwargs)
+            raise ValidationError(
+                "Email addresses must match."
+            )
+
+        return self.cleaned_data

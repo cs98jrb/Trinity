@@ -35,7 +35,7 @@ EMAIL_HOST_PASSWORD = 'd/NMf-j,(Nc$bBP8T%>`'
 
 SERVER_EMAIL = 'admin@trinitywilliams.co.uk'
 
-ALLOWED_HOSTS = ['mysite',]
+ALLOWED_HOSTS = ['mysite','127.0.0.1:8000']
 
 # Application definition
 
@@ -47,7 +47,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'events',
-    'mysite',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,7 +93,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR+'/static/'
+#STATIC_ROOT = BASE_DIR+'/static/'
+STATICFILES_DIRS = (
+    BASE_DIR+'/static/',
+)
 
 #
 

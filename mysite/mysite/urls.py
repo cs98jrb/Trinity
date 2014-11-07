@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^press/', views.coming_soon, name='press'),
     url(r'^serenity_centre/', views.coming_soon, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),
-    url(r'^contact/', views.ContactForm.as_view(), name='contact'),
+    url(r'^contact/', views.get_contact, name='contact'),
     
     #actual site
     #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),

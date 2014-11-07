@@ -2,15 +2,15 @@ from django.contrib import admin
 from django.contrib.contenttypes.admin import GenericTabularInline
 
 
-from events.models import Event, Venue, Priceing
+from events.models import Event, Venue, Pricing
 
-class PriceingInline(admin.TabularInline):
-    model = Priceing.event.through
+class PricingInline(admin.TabularInline):
+    model = Pricing.event.through
     extra = 0
 
 class EventAdmin(admin.ModelAdmin):
-    inlines = [PriceingInline,]
+    inlines = [PricingInline,]
 
 admin.site.register(Event, EventAdmin)
 admin.site.register(Venue)
-admin.site.register(Priceing)
+admin.site.register(Pricing)

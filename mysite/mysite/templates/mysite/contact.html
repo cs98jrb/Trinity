@@ -1,9 +1,11 @@
 {% extends "mysite/base.html" %}
-{% load staticfiles %}
 {% block content %}
+    <p>If you would like to book a private sitting or contact me for any other reason please complete the form below or call me on 07977 708545.</p>
 <form action="{% url 'contact' %}" method="post">
     {% csrf_token %}
-    {{ form }}
+    <table>
+    {{ form.as_table }}
+    </table>
     <input class="button" type="submit" value="Submit" />
 </form>
 {% endblock %}
