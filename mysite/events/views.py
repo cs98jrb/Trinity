@@ -7,7 +7,7 @@ def index(request):
     Event.capacity = 1
     event_list = Event.objects.filter(
         event_time__gte=timezone.now()
-    ).order_by('ev')[:5]
+    )[:5]
 
     return render(request, 'events/index.html', {
         'event_list': event_list,

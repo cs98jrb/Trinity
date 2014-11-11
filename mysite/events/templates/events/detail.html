@@ -2,7 +2,15 @@
 {% block content %}
 <h2>{{ event.title }}</h2>
 <div>
-    {{ event.description|safe }}
+    <p>
+        {{ event.description|safe }}
+    </p>
+    {% if event.pricing_set %}
+        {% for price in event.pricing_set.all %}
+            <p>{{ price|safe }}</p>
+        {% endfor %}
+    {% endif %}
+    <button class="button">Book Now</button>
 </div>
 
 {% endblock %}
