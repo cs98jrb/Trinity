@@ -29,9 +29,10 @@ body{
 
 #content {
     font-size: large;
-   float: left;
-   width: 810px;
-   margin-right: 25px;
+    float: left;
+    width: 810px;
+    margin-right: 25px;
+    margin: 0px, 10px;
 }
 
 #content ul {
@@ -90,3 +91,27 @@ ul li{
     margin: 10px;
 }
 
+.contact_form table{
+    width: 98%;
+    margin: auto;
+}
+
+.contact_form th{
+    color: #cc3399;
+    text-align: right;
+}
+
+.contact_form td{
+    color: #cc3399;
+    text-align: center;
+}
+
+.contact_form input{
+    width: 90%;
+    margin: auto;
+}
+
+.contact_form textarea{
+    width: 90%;
+    margin: auto;
+}

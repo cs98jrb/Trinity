@@ -3,6 +3,9 @@ from django.conf.urls import patterns, include, url
 
 from django.contrib import admin
 from mysite import views
+from mysite import paypal
+
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -29,11 +32,7 @@ urlpatterns = patterns('',
     #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     url(r'^admin/', include(admin.site.urls)),
 
-    #url(r'^events/', views.index, name='events'),
-    #url(r'^readings/', views.index, name='readings'),
-    #url(r'^books/', views.index, name='books'),
-    #url(r'^press/', views.index, name='press'),
-    #url(r'^serenity_centre/', views.index, name='serenity_centre'),
-    #url(r'^blog/', views.index, name='blog'),
-    #url(r'^contact/', views.index, name='contact'),
+    #paypal
+    url(r'^paypal/create/$', paypal.paypal_create, name='paypal_create'),
+    url(r'^paypal/execute/$', paypal.paypal_execute, name='paypal_execute'),
 )

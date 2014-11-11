@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'events',
+    'paypalrestsdk',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -102,3 +103,8 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR+'/media/'
+
+# Paypal options
+PAYPAL_MODE = 'sandbox' # sandbox or live
+PAYPAL_CLIENT_ID = 'ASw3vhBaRKZVrThqc-Clfbgguu9-olLHrBxYrLOF830fJWQMdGrAVfMra_Eo'
+PAYPAL_CLIENT_SECRET = 'EFd4EBDqRiPSDRgIX_tP0IZgGVg5-dvB9fLQqXRhywtpmNnG1--8ozFl_txn'
