@@ -11,6 +11,16 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Booking',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('number_attending', models.IntegerField()),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Event',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -23,11 +33,12 @@ class Migration(migrations.Migration):
                 ('pub_date', models.DateTimeField(auto_now_add=True, verbose_name=b'date published')),
             ],
             options={
+                'ordering': ['event_time'],
             },
             bases=(models.Model,),
         ),
         migrations.CreateModel(
-            name='Priceing',
+            name='Pricing',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=50)),
@@ -57,6 +68,18 @@ class Migration(migrations.Migration):
             model_name='event',
             name='venue',
             field=models.ForeignKey(to='events.Venue'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='booking',
+            name='event',
+            field=models.ForeignKey(to='events.Event'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='booking',
+            name='price',
+            field=models.ForeignKey(to='events.Pricing'),
             preserve_default=True,
         ),
     ]

@@ -1,6 +1,7 @@
 from django.db import models
+from django.contrib.contenttypes.fields import GenericRelation
+from orders.models import OrderItem
 
-# Create your models here.
 
 class Venue(models.Model):
     name = models.CharField(max_length=50)
@@ -38,3 +39,14 @@ class Pricing(models.Model):
 
     def __unicode__(self):  # __unicode__ on Python 2
         return self.title + " &pound;" + str(self.value)
+
+
+class Booking(models.Model):
+    booked = models.DateField('date booked', auto_now_add=True)
+    event = models.ForeignKey(Event)
+    price = models.ForeignKey(Pricing)
+    number_attending = models.IntegerField()
+    order_item = GenericRelation(OrderItem)
+
+    def __unicode__(self):  # __unicode__ on Python 2
+        return str(self.pk) + " " + self.booked.strftime('%d/%m/%Y')
