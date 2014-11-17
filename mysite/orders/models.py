@@ -28,6 +28,13 @@ class OrderItem(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
+    @property
+    def value_inc(self):
+        return float(self.value) * (1 + (self.vat / 100.0))
+
+    def __unicode__(self):  # __unicode__ on Python 2
+        return self.description + " " + str(self.value)
+
 
 class Payment(models.Model):
     order = models.ForeignKey(Order)

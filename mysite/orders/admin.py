@@ -15,6 +15,10 @@ class OrderItemInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     inlines = [PaymentInline, OrderItemInline]
 
+
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('description', 'value', 'value_inc',)
+
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderItem)
+admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Payment)
