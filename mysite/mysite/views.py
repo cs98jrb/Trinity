@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 
 from django.views import generic
 from django.core.mail import send_mail
+from django.contrib.auth.decorators import login_required
 
 
 from events.models import Event
@@ -39,6 +40,7 @@ def contact(request):
     })
 
 
+@login_required
 def get_contact(request):
 
     event_list = Event.objects.filter(
