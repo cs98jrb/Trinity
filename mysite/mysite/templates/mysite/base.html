@@ -8,18 +8,24 @@
     <script src="{% static "jquery_ui/jquery-ui.min.js" %}"></script>
     
     <title>{% block title %}Trinity Williams{% endblock %}</title>
-    <script>  
-      $( document ).ready(function() {
-        $( "#menu_options" ).buttonset();
-        $(".button").button();
-         $( "#datepicker" ).datepicker({
-             showOtherMonths: true,
-             selectOtherMonths: true,
-             minDate: 0,
-             altField: "#alternate",
-             altFormat: "DD, d MM, yy"
-         });
-      });
+    <script>
+        $( document ).ready(function() {
+            $( "#menu_options" ).buttonset();
+            $(".button").button();
+            $( "#datepicker" ).datepicker({
+                 showOtherMonths: true,
+                 selectOtherMonths: true,
+                 minDate: 0,
+                 altField: "#alternate",
+                 altFormat: "DD, d MM, yy"
+             });
+            $("tr.required").find("th:last").append(" * ");
+            //$("span.helptext").hide();
+            //$("span.helptext").hover(
+            //        function () {$(this).show();},
+            //        function () {$(this).hide();}
+           // );
+        });
     </script>
 </head>
 

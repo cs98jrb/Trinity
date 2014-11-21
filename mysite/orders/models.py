@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.db.models import Sum
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -14,7 +15,7 @@ class OrderManager(models.Manager):
 class Order(models.Model):
     date = models.DateField(auto_now_add=True)
     open = models.BooleanField(default=True)
-    ordered_by = models.ForeignKey(User)
+    ordered_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     objects = OrderManager()
 
     def __unicode__(self):  # __unicode__ on Python 2

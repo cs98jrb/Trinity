@@ -1,10 +1,5 @@
 {% extends "mysite/base.html" %}
 {% block content %}
-{% if user.is_authenticated %}
-    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
-{% else %}
-    <p>Welcome, new user. Please log in.</p>
-{% endif %}
     <h2>Contact form</h2>
     <p>If you would like to book a private sitting or contact me for any other reason please complete the form below or call me on 07977 708545.</p>
 <form action="{% url 'contact' %}" method="post" class="contact_form">

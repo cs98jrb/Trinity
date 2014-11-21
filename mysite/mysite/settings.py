@@ -80,9 +80,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-GB'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/London'
 
 USE_I18N = True
 
@@ -95,7 +95,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = BASE_DIR+'/static/'
+# STATIC_ROOT = BASE_DIR+'/static/'
 STATICFILES_DIRS = (
     BASE_DIR+'/static/',
 )
@@ -109,3 +109,8 @@ MEDIA_ROOT = BASE_DIR+'/media/'
 PAYPAL_MODE = 'sandbox' # sandbox or live
 PAYPAL_CLIENT_ID =     'ASw3vhBaRKZVrThqc-Clfbgguu9-olLHrBxYrLOF830fJWQMdGrAVfMra_Eo'
 PAYPAL_CLIENT_SECRET = 'EFd4EBDqRiPSDRgIX_tP0IZgGVg5-dvB9fLQqXRhywtpmNnG1--8ozFl_txn'
+
+# change user model
+AUTH_USER_MODEL = 'auth.User'
+
+

@@ -28,6 +28,8 @@ urlpatterns = patterns('',
     #the contact form.
     url(r'^contact/thanks', views.contact_thanks, name='thank you'),
     url(r'^contact/', views.get_contact, name='contact'),
+    #Login
+    url(r'^new_user/', views.register, name='registration'),
 
     #actual site
     #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
@@ -39,4 +41,7 @@ urlpatterns = patterns('',
 
     #Login
     url(r'^accounts/login/$', auth_views.login),
+    url(r'^accounts/logout/$', auth_views.logout, name='logout'),
+
+
 )

@@ -115,3 +115,18 @@ ul li{
     width: 90%;
     margin: auto;
 }
+
+.contact_form .helptext {
+    font-size: small;
+    color: #333333;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-color: #333333;
+    border-width: thin;
+    padding: 3px;
+}
+
+tr.required {
+    background-color: #EAE4F0;
+}

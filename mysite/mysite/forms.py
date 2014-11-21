@@ -6,6 +6,9 @@ from mysite.models import EmailInf
 
 
 class ContactForm(forms.ModelForm):
+    # set the css of required fields
+    required_css_class = 'required'
+
     confirm_email = forms.EmailField(
         label="Confirm email",
         required=True,
@@ -37,16 +40,33 @@ class ContactForm(forms.ModelForm):
 
 
 class CreateUserForm(forms.ModelForm):
+    # set the css of required fields
+    required_css_class = 'required'
+
     confirm_email = forms.EmailField(
         label="Confirm email",
         required=True,
     )
+    password1 = forms.CharField(
+        label='Password', widget=forms.PasswordInput, required=True
+    )
+    password2 = forms.CharField(
+        label='Password', help_text='Confirm your password', widget=forms.PasswordInput, required=True
+    )
 
     class Meta:
         model = User
-        fields = ('email', 'password')
+        fields = ['username', 'password1', 'password2', 'email', 'confirm_email', 'first_name', 'last_name', ]
 
-    def clean(self):
+    def clean_password2(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return password2
+
+    def clean_confirm_email(self):
 
         if (self.cleaned_data.get('email') !=
                 self.cleaned_data.get('confirm_email')):
@@ -55,4 +75,19 @@ class CreateUserForm(forms.ModelForm):
                 "Email addresses must match."
             )
 
-        return self.cleaned_data
+        return self.cleaned_data.get('confirm_email')
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        if User.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
+            raise ValidationError(u'Username "%s" is already in use.' % username)
+
+        return username
+
+    def save(self, commit=True):
+        # Hash the password
+        user = super(CreateUserForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user

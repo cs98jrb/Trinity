@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 
 from events.models import Event
-from mysite.forms import ContactForm
+from mysite.forms import ContactForm, CreateUserForm
 
 
 class IndexView(generic.ListView):
@@ -40,7 +40,6 @@ def contact(request):
     })
 
 
-@login_required
 def get_contact(request):
 
     event_list = Event.objects.filter(
@@ -50,7 +49,7 @@ def get_contact(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = ContactForm(request,request.POST)
+        form = ContactForm(request, request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
@@ -60,7 +59,7 @@ def get_contact(request):
 
             recipients = ['james@pjshire.me.uk']
 
-            form.save();
+            form.save()
 
             send_mail(subject, message, sender, recipients)
 
@@ -76,10 +75,39 @@ def get_contact(request):
         'event_list': event_list,
     })
 
+
 def contact_thanks(request):
     event_list = Event.objects.filter(
         event_time__gte=timezone.now()
     )[:5]
     return render(request, 'mysite/contact_thanks.html', {
+        'event_list': event_list,
+    })
+
+
+def register(request):
+
+    event_list = Event.objects.filter(
+        event_time__gte=timezone.now()
+    )[:5]
+
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = CreateUserForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+
+            form.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('thank you'))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = CreateUserForm()
+
+    return render(request, 'mysite/new_user.html', {
+        'form': form,
         'event_list': event_list,
     })
