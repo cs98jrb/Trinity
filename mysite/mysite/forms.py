@@ -1,6 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 
 from mysite.models import EmailInf
 
@@ -84,10 +85,20 @@ class CreateUserForm(forms.ModelForm):
 
         return username
 
-    def save(self, commit=True):
+    def save(self, commit=True, login=True):
         # Hash the password
         user = super(CreateUserForm, self).save(commit=False)
         user.set_password(self.cleaned_data["password1"])
         if commit:
             user.save()
+
+        return user
+
+    def login(self, request):
+        user = authenticate(username=self.cleaned_data["username"], password=self.cleaned_data["password1"])
+        if user.is_active:
+            login(request, user)
+        else:
+            raise ValidationError(u'Username "%s" is already in use.' % self.cleaned_data["username"])
+
         return user

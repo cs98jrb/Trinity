@@ -103,17 +103,17 @@ ul li{
 
 .contact_form td{
     color: #cc3399;
-    text-align: center;
+    text-align: left;
 }
 
 .contact_form input{
-    width: 90%;
-    margin: auto;
+    width: 450px;
+    margin-left: 5px;
 }
 
 .contact_form textarea{
-    width: 90%;
-    margin: auto;
+    width: 450px;
+    margin-left: 5px;
 }
 
 .contact_form .helptext {
@@ -129,4 +129,10 @@ ul li{
 
 tr.required {
     background-color: #EAE4F0;
+}
+
+ul.errorlist {
+    margin: 5px;
+    list-style-type: none;
+    padding: inherit;
 }

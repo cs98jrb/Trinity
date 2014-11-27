@@ -15,31 +15,32 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', views.IndexView.as_view(), name='home page'),
     
-    #Event system
+    # Event system
     url(r'^events/', include('events.urls', namespace="events")),
 
-    #Holding pages
+    # Holding pages
     url(r'^readings/', views.coming_soon, name='readings'),
     url(r'^books/', views.coming_soon, name='books'),
     url(r'^press/', views.coming_soon, name='press'),
     url(r'^serenity_centre/', views.coming_soon, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),
 
-    #the contact form.
+    # the contact form.
     url(r'^contact/thanks', views.contact_thanks, name='thank you'),
     url(r'^contact/', views.get_contact, name='contact'),
-    #Login
-    url(r'^new_user/', views.register, name='registration'),
 
-    #actual site
+    # Login
+    url(r'^new_user/$', views.register, name='registration'),
+
+    # actual site
     #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     url(r'^admin/', include(admin.site.urls)),
 
-    #paypal
+    # paypal
     url(r'^paypal/create/$', paypal.paypal_create, name='paypal_create'),
     url(r'^paypal/execute/$', paypal.paypal_execute, name='paypal_execute'),
 
-    #Login
+    # Login
     url(r'^accounts/login/$', auth_views.login),
     url(r'^accounts/logout/$', auth_views.logout, name='logout'),
 

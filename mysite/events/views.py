@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404, render
-from events.models import Event
+from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+
+from events.models import Event
 
 
 def index(request):
@@ -15,5 +17,22 @@ def index(request):
 
 
 def detail(request, event_id):
+    event_list = Event.objects.filter(
+        event_time__gte=timezone.now()
+    )[:5]
     event = get_object_or_404(Event, pk=event_id)
-    return render(request, 'events/detail.html', {'event': event})
+    return render(request, 'events/detail.html', {
+        'event_list': event_list,
+        'event': event
+    })
+
+@login_required
+def book(request, event_id):
+    event_list = Event.objects.filter(
+        event_time__gte=timezone.now()
+    )[:5]
+    event = get_object_or_404(Event, pk=event_id)
+    return render(request, 'events/book.html', {
+        'event_list': event_list,
+        'event': event
+    })
