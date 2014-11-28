@@ -18,7 +18,7 @@ def register(request):
                                    request.GET.get('next', ''))
 
     if not is_safe_url(url=redirect_to, host=request.get_host()):
-        redirect_to = resolve_url('thank you')
+        redirect_to = resolve_url('home page')
 
     if request.method == "POST":
         form = CreateUserForm(request.POST)

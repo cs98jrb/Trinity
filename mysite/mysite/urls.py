@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls import patterns, include, url
-from django.contrib.auth import views as auth_views
+
 
 from django.contrib import admin
 from mysite import views
@@ -41,8 +41,7 @@ urlpatterns = patterns('',
     url(r'^paypal/execute/$', paypal.paypal_execute, name='paypal_execute'),
 
     # Login
-    url(r'^accounts/login/$', auth_views.login),
-    url(r'^accounts/logout/$', auth_views.logout, name='logout'),
+    url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 
 
 )

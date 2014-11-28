@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'events',
     'paypalrestsdk',
     'orders',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,5 +113,4 @@ PAYPAL_CLIENT_SECRET = 'EFd4EBDqRiPSDRgIX_tP0IZgGVg5-dvB9fLQqXRhywtpmNnG1--8ozFl
 
 # change user model
 AUTH_USER_MODEL = 'auth.User'
-
-
+LOGIN_REDIRECT_URL = '/'

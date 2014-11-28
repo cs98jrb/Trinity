@@ -51,7 +51,12 @@
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'press' %}">Press</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'serenity_centre' %}">Serenity Centre</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'blog' %}">Blog</a></li>
-            <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'contact' %}">Contact</a></li>
+            <li class="menu"><a style="width: 100%" class="menu"  href="{% url 'contact' %}">Contact</a></li>
+            {% if user.is_authenticated %}
+                <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'accounts:logout' %}">logout</a></li>
+            {% else %}
+                <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'accounts:login' %}">login</a></li>
+            {% endif %}
         </ul>
     </div>
         <div class="error">
@@ -62,7 +67,7 @@
         {% block content %}
         <img class="text_wrap" src="{% static "mysite/images/trinity.png" %}" alt="Trinity Williams"/>
         <img src="{% static "mysite/images/welcome.png" %}" alt="Trinity Williams"/>
-        <p>My name is Trinity Williams (previously known as Beverly Williams), and I am a spiritual-medium who has helped so many people find the light when they could see only the darkness in their lives.</p>
+        <p>My name is Trinity Williams, and I am a spiritual-medium who has helped so many people find the light when they could see only the darkness in their lives.</p>
         <p>Understanding that there is life after death and connecting the two worlds is my calling in life.</p>
         <ul>
             <li>Have you lost a loved one with whom you would like to contact?</li>
