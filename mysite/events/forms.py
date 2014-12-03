@@ -1,19 +1,17 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
 
-from orders.models import Order
+from events.models import Booking
 
-class OrderForm(forms.ModelForm):
+
+class BookingForm(forms.ModelForm):
     # set the css of required fields
     required_css_class = 'required'
 
-    confirm_email = forms.EmailField(
-        label="Confirm email",
-        required=True,
-    )
-
     def __init__(self,request, *args, **kwargs):
-        super(OrderForm, self).__init__(*args, **kwargs)
+        super(BookingForm, self).__init__(*args, **kwargs)
         try:
             if not request.user.is_anonymous():
                 self.fields['email'].initial = request.user.email
@@ -22,7 +20,7 @@ class OrderForm(forms.ModelForm):
             pass
 
     class Meta:
-        model = Order
+        model = Booking
         fields = ['name', 'email', 'confirm_email', 'message', ]
 
     def clean(self):

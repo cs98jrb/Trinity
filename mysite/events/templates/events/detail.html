@@ -10,7 +10,9 @@
             <p>{{ price|safe }}</p>
         {% endfor %}
     {% endif %}
+    {% if bookable %}
     <a href="{% url 'events:book' event.pk %}" class="button">Book Now</a>
+    {% endif %}
 </div>
 
 {% endblock %}

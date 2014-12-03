@@ -35,7 +35,7 @@ class Pricing(models.Model):
     event = models.ManyToManyField(Event, null=True, blank=True, )
     title = models.CharField(max_length=50)
     value = models.DecimalField(max_digits=5, decimal_places=2)
-    online_book = models.BooleanField(default=True)
+    online_book = models.BooleanField(default=False)
 
     def __unicode__(self):  # __unicode__ on Python 2
         return self.title + " &pound;" + str(self.value)

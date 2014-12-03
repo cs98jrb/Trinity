@@ -1,20 +1,23 @@
 {% extends "mysite/base.html" %}
 {% block content %}
+    <h2>Book your place</h2>
 {% if user.is_authenticated %}
-    <p>Welcome, {{ user.get_short_name }}. Thanks for logging in.</p>
-{% else %}
-    <p>Welcome, new user. Please log in.</p>
-{% endif %}
-    <h2>Contact form</h2>
-    <p>If you would like to book a private sitting or contact me for any other reason please complete the form below or call me on 07977 708545.</p>
-<form action="{% url 'contact' %}" method="post" class="contact_form">
-    {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-        <tr>
-            <td colspan="2"><input class="button" type="submit" value="Submit" /></td>
-        </tr>
-    </table>
+    <p>Please fill out the form below:</p>
+    {% if event %}
+    {% endif %}
 
-</form>
+    {% if pricing_set %}
+        {% for price in pricing_set.all %}
+            <p>{{ price|safe }}</p>
+        {% endfor %}
+    {% endif %}
+
+    {% if online_pricing %}
+        {% for online_price in online_pricing %}
+            <p>{{ online_price|safe }}</p>
+        {% endfor %}
+    {% endif %}
+{% else %}
+    <p>Please <a href="{% url 'login' %}" >log in</a> to book your place.</p>
+{% endif %}
 {% endblock %}

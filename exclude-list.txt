@@ -1,0 +1,8 @@
+*.pyc
+wsgi.py
+settings.py
+db.cnf
+/trinity/
+/migrations/
+*~
+
