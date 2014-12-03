@@ -4,6 +4,7 @@ from django.contrib.contenttypes.models import ContentType
 
 from orders.models import Order, Vat
 
+
 class OrderItem(models.Model):
     order = models.ForeignKey(Order)
     description = models.CharField(max_length=150)
@@ -15,7 +16,7 @@ class OrderItem(models.Model):
 
     @property
     def value_inc(self):
-        return float(self.value) * (1 + (self.vat / 100.0))
+        return self.value * (1 + self.vat.rate)
 
     def __unicode__(self):  # __unicode__ on Python 2
-        return self.description + " " + str(self.value)
+        return self.description + " &pound;" + '%.2f' % self.value

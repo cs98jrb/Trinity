@@ -2,11 +2,11 @@
 {% block content %}
 <h2>My Orders</h2>
 {% if order_list %}
-    {% for event in event_list %}
-    <li><a href="{% url 'orders:detail' event.id %}">{{ event.title }}</a> at {{ event.venue}} on <strong>{{ event.event_time|date:"D jS N"}}</strong></li>
+    {% for order in order_list %}
+    <li><a href="{% url 'orders:detail' order.id %}">{{ order.date }}</a> at {{ event.venue}} on <strong>{{ event.event_time|date:"D jS N"}}</strong></li>
     {% endfor %}
 {% else %}
-    <p>There are no scheduled events.</p>
+    <p>You have no orders.</p>
 {% endif %}
 
 

@@ -18,6 +18,9 @@ urlpatterns = patterns('',
     # Event system
     url(r'^events/', include('events.urls', namespace="events")),
 
+    # Event system
+    url(r'^order/', include('orders.urls', namespace="orders")),
+
     # Holding pages
     url(r'^readings/', views.coming_soon, name='readings'),
     url(r'^books/', views.coming_soon, name='books'),

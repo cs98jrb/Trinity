@@ -25,7 +25,7 @@ class Payment(models.Model):
     def __unicode__(self):
         if self.payed:
             return "Paid "+str(self.value_inc)+" on "+self.date.strftime('%d/%m/%Y')
-        elif self.date > datetime.now():
+        elif self.date > datetime.now().date():
             return "Due "+str(self.value_inc)+" on "+self.date.strftime('%d/%m/%Y')
         else:
             return "Over due "+str(self.value_inc)+" from "+self.date.strftime('%d/%m/%Y')
