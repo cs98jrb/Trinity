@@ -49,4 +49,6 @@ class Booking(models.Model):
     order_item = GenericRelation(OrderItem)
 
     def __unicode__(self):  # __unicode__ on Python 2
-        return str(self.pk) + " " + self.booked.strftime('%d/%m/%Y')
+        data = str(self.event)
+        info = (data[:40] + ' ...') if len(data) > 44 else data
+        return info + " " + str(self.number_attending) + " people"

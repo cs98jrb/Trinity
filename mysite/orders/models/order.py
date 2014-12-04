@@ -20,6 +20,9 @@ class Order(models.Model):
         return total_inc
 
     def vat_inf(self):
+        if not settings.VAT_REGISTERED:
+            return
+
         vat_list = self.orderitem_set.order_by('vat').values('vat__rate', 'vat__name').annotate(
             exvat=Sum('value')
         )

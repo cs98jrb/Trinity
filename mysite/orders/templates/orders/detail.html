@@ -3,9 +3,8 @@
     <h2>Order Num. {{ order.pk }}</h2>
     <p>Date:  {{ order.date }}</p>
     {{ vat_list }}
-    {% for vat in order.orderitem_set.all %}
-        <p>Inc &pound;{{ vat.value_inc|floatformat:2 }} Ex &pound;{{ vat.value }} {{ vat.content_object }}<br>
-        {{ vat|safe }}
+    {% for lines in order.orderitem_set.all %}
+        <p>{{ lines.content_object }} {{ lines.content_object.price.value }} {{ lines.value }}
         </p>
     {% endfor %}
     <p>&pound;{{ order.total_inc }} &pound;{{ order.total_ex }}</p>
