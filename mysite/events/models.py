@@ -1,6 +1,8 @@
 from django.db import models
+
 from django.contrib.contenttypes.fields import GenericRelation
 from orders.models import OrderItem
+
 
 
 class Venue(models.Model):
@@ -24,6 +26,28 @@ class Event(models.Model):
     last_booking = models.DateTimeField()
     pub_date = models.DateTimeField('date published', auto_now_add=True)
 
+    @property
+    def fully_booked(self):
+        if self.capacity > 0:
+            bookings = self.booking_set.aggregate(total=models.Sum('quantity'))
+            if bookings['total'] < self.capacity:
+                return False
+            else:
+                return True
+        else:
+            return False
+
+    @property
+    def num_spaces(self):
+        if self.capacity > 0:
+            bookings = self.booking_set.aggregate(total=models.Sum('quantity'))
+            if bookings['total'] < self.capacity:
+                return self.capacity - bookings['total']
+            else:
+                return 0
+        else:
+            return 999
+
     class Meta:
         ordering = ['event_time']
 
@@ -45,10 +69,10 @@ class Booking(models.Model):
     booked = models.DateField('date booked', auto_now_add=True)
     event = models.ForeignKey(Event)
     price = models.ForeignKey(Pricing)
-    number_attending = models.IntegerField()
+    quantity = models.IntegerField()
     order_item = GenericRelation(OrderItem)
 
     def __unicode__(self):  # __unicode__ on Python 2
         data = str(self.event)
         info = (data[:40] + ' ...') if len(data) > 44 else data
-        return info + " " + str(self.number_attending) + " people"
+        return info

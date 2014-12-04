@@ -8,17 +8,23 @@ class Order(models.Model):
     open = models.BooleanField(default=True)
     ordered_by = models.ForeignKey(settings.AUTH_USER_MODEL)
 
+    @property
     def total_ex(self):
         ex_vat_dict = self.orderitem_set.all().aggregate(exvat=Sum('value'))
         return ex_vat_dict['exvat']
 
+    @property
     def total_inc(self):
+        if not settings.VAT_REGISTERED:
+            ex_vat_dict = self.orderitem_set.all().aggregate(exvat=Sum('value'))
+            return ex_vat_dict['exvat']
         vat_list = self.orderitem_set.order_by('vat').values('vat__rate').annotate(exvat=Sum('value'))
         total_inc = 0
         for vat in vat_list:
             total_inc += round(vat['exvat'] * (1+vat['vat__rate']), 2)
         return total_inc
 
+    @property
     def vat_inf(self):
         if not settings.VAT_REGISTERED:
             return

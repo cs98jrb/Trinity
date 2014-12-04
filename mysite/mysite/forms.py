@@ -15,7 +15,7 @@ class ContactForm(forms.ModelForm):
         required=True,
     )
 
-    def __init__(self,request, *args, **kwargs):
+    def __init__(self, request, *args, **kwargs):
         super(ContactForm, self).__init__(*args, **kwargs)
         try:
             if not request.user.is_anonymous():

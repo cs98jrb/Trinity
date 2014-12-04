@@ -1,16 +1,44 @@
 {% extends "mysite/base.html" %}
 {% block content %}
-    <h2>Order Num. {{ order.pk }}</h2>
+    <h2>Order {{ order.date }}</h2>
     <p>Date:  {{ order.date }}</p>
-    {{ vat_list }}
+    <table>
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+    </thead>
     {% for lines in order.orderitem_set.all %}
-        <p>{{ lines.content_object }} {{ lines.content_object.price.value }} {{ lines.value }}
-        </p>
+        <tr>
+            <td>{{ lines.description }}</td>
+            <td>{{ lines.content_object.quantity }}</td>
+            <td>{{ lines.content_object.price.value }}</td>
+            <td>{{ lines.value }}</td>
+        </tr>
     {% endfor %}
-    <p>&pound;{{ order.total_inc }} &pound;{{ order.total_ex }}</p>
-    <p>{{ order.vat_inf }}</p>
+    <tr>
+        <td colspan="3">Total</td>
+        <td>&pound;{{ order.total_ex }}</td>
+    </tr>
+
+    {% if order.vat_inf %}
     {% for vat_inf in order.vat_inf %}
-        <p>{{ vat_inf.vat__name }} {{ vat_inf.rate_pc|floatformat:2 }}% &pound;{{ vat_inf.vat_val|floatformat:2 }}</p>
+        <tr>
+            <td colspan="3">{{ vat_inf.vat__name }} {{ vat_inf.rate_pc|floatformat:2 }}%</td>
+            <td>&pound;{{ vat_inf.vat_val|floatformat:2 }}</td>
+        </tr>
     {% endfor %}
+        <tr>
+            <td colspan="3">Total Inc</td>
+            <td>&pound;{{ order.total_inc }}</td>
+        </tr>
+    {% endif %}
+
+    </table>
+
+
 
 {% endblock %}

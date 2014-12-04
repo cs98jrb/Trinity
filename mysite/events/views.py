@@ -1,8 +1,12 @@
 from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
 from events.models import Event
+
+from events.forms import BookingForm
 
 
 def index(request):
@@ -21,7 +25,8 @@ def detail(request, event_id):
         event_time__gte=timezone.now()
     )[:5]
     event = get_object_or_404(Event, pk=event_id)
-    if event.pricing_set.all().filter(online_book=True):
+    if event.pricing_set.all().filter(online_book=True)\
+            and not event.fully_booked:
         booking = True
     else:
         booking = False
@@ -37,6 +42,23 @@ def book(request, event_id):
     event_list = Event.objects.filter(
         event_time__gte=timezone.now()
     )[:5]
+
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = BookingForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            form.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('thank you'))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = BookingForm(request)
+
     event = get_object_or_404(Event, pk=event_id)
     pricing_set = event.pricing_set
     online_pricing = event.pricing_set.all().filter(online_book=True)
@@ -46,4 +68,5 @@ def book(request, event_id):
         'event': event,
         'pricing_set': pricing_set,
         'online_pricing': online_pricing,
+        'form': form,
     })
