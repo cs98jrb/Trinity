@@ -8,6 +8,5 @@
 {% else %}
     <p>You have no orders.</p>
 {% endif %}
-
-
+    <p><a href="{% url 'accounts:logout' %}">Logout</a></p>
 {% endblock %}

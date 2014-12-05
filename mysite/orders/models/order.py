@@ -37,5 +37,9 @@ class Order(models.Model):
             vat['rate_pc'] = vat['vat__rate'] * 100
         return vat_list
 
+    @property
+    def vat_num(self):
+        return settings.VAT_REGISTERED
+
     def __unicode__(self):  # __unicode__ on Python 2
         return str(self.pk) + " " + self.date.strftime('%d/%m/%Y')

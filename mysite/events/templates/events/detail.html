@@ -14,7 +14,16 @@
         {% if event.num_spaces < 999 %}
             <p>Currently {{ event.num_spaces }} spaces left</p>
         {% endif %}
-    <a href="{% url 'events:book' event.pk %}" class="button">Book Now</a>
+        {% if user.is_authenticated %}
+<form action="{% url 'events:book' event.id %}" method="post">
+    {% csrf_token %}
+    {{ form.quantity.errors }}
+    {{ form.quantity.label_tag }}
+    {{ form.quantity }} <input class="button" type="submit" value="Book" />
+</form>
+        {% else %}
+    <p>Please <a href="{% url 'accounts:login' %}?next={{ request.path }}" >log in</a> to book your place.</p>
+        {% endif %}
     {% endif %}
 </div>
 

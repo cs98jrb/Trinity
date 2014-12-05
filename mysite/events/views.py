@@ -35,6 +35,8 @@ def detail(request, event_id):
         'event_list': event_list,
         'event': event,
         'bookable': booking,
+        'request': request,
+        'form': BookingForm(),
     })
 
 @login_required
@@ -43,6 +45,10 @@ def book(request, event_id):
         event_time__gte=timezone.now()
     )[:5]
 
+    event = get_object_or_404(Event, pk=event_id)
+    pricing_set = event.pricing_set
+    online_pricing = event.pricing_set.all().filter(online_book=True)
+
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -50,18 +56,16 @@ def book(request, event_id):
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
-            form.save()
+
+            pricing = online_pricing[0]
+            form.save(event_id=event_id, price=pricing)
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('thank you'))
+            return HttpResponseRedirect(reverse('events:thankyou'))
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = BookingForm(request)
-
-    event = get_object_or_404(Event, pk=event_id)
-    pricing_set = event.pricing_set
-    online_pricing = event.pricing_set.all().filter(online_book=True)
+        form = BookingForm()
 
     return render(request, 'events/book.html', {
         'event_list': event_list,
@@ -69,4 +73,14 @@ def book(request, event_id):
         'pricing_set': pricing_set,
         'online_pricing': online_pricing,
         'form': form,
+    })
+
+
+def thankyou(request):
+    event_list = Event.objects.filter(
+        event_time__gte=timezone.now()
+    )[:5]
+
+    return render(request, 'events/thankyou.html', {
+        'event_list': event_list,
     })

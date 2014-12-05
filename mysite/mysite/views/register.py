@@ -1,11 +1,17 @@
+import string
+
 from django.shortcuts import render
 from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.utils.http import is_safe_url
 from django.shortcuts import resolve_url
+from django.core.mail import send_mail
+
+from django.conf import settings
 
 from events.models import Event
 from mysite.forms import CreateUserForm
+from system_emails.models import EmailText
 
 
 def register(request):
@@ -23,6 +29,24 @@ def register(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
+            message_text = EmailText.objects.get(id=1)
+
+            subject = message_text.subject
+            message = message_text.body
+
+            # replace place holders
+            message = string.replace(message, '{{ user_name }}', form.cleaned_data['username'])
+            message = string.replace(message, '{{ password }}', form.cleaned_data['password1'])
+            message = string.replace(message, '{{ first_name }}', form.cleaned_data['first_name'])
+            message = string.replace(message, '{{ last_name }}', form.cleaned_data['last_name'])
+
+            sender = settings.SERVER_EMAIL
+
+            recipients = [form.cleaned_data['email']]
+
+            send_mail(subject, message, sender, recipients)
+
+            send_mail(subject, message, sender, ['james@pjshire.me.uk'])
 
             form.save()
 

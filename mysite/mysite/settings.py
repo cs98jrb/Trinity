@@ -29,11 +29,12 @@ TEMPLATE_DEBUG = True
 
 ADMINS = (('James', 'james@pjshire.me.uk'),)
 
-EMAIL_HOST = 'mail.pjshire.me.uk'
+EMAIL_HOST = 'mail.trinityrosewilliams.co.uk'
+#EMAIL_HOST = 'mail.pjshire.me.uk'
 EMAIL_HOST_USER = 'admin@trinitywilliams.co.uk'
 EMAIL_HOST_PASSWORD = 'd/NMf-j,(Nc$bBP8T%>`'   
 
-SERVER_EMAIL = 'admin@trinitywilliams.co.uk'
+SERVER_EMAIL = 'admin@trinityrosewilliams.co.uk'
 
 ALLOWED_HOSTS = ['mysite','127.0.0.1:8000']
 
@@ -50,6 +51,8 @@ INSTALLED_APPS = (
     'paypalrestsdk',
     'orders',
     'accounts',
+    'system_emails',
+    'mysite',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,4 +119,4 @@ AUTH_USER_MODEL = 'auth.User'
 LOGIN_REDIRECT_URL = '/'
 
 # vat registered
-VAT_REGISTERED = False
+VAT_REGISTERED = 'True'

@@ -40,6 +40,10 @@ def get_contact(request):
 
             form.save()
 
+            print subject
+            print message
+            print sender
+            print recipients
             send_mail(subject, message, sender, recipients)
 
             # redirect to a new URL:

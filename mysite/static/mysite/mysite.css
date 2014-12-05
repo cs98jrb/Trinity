@@ -77,7 +77,10 @@ body{
     margin: 10px auto;
 }
 
-.allign_left{
+.align_left {
+    text-align: left;
+}
+.align_right {
     text-align: right;
 }
 

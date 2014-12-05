@@ -19,9 +19,13 @@ class OrderAdmin(admin.ModelAdmin):
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ('description', 'value', 'value_inc',)
 
+
+class VatAdmin(admin.ModelAdmin):
+    list_display = ('name', 'rate_pc', 'used_rate')
+
 admin.site.register(Order, OrderAdmin)
 admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Payment)
-admin.site.register(Vat)
+admin.site.register(Vat, VatAdmin)
 admin.site.register(Invoice)
 admin.site.register(PaymentType)

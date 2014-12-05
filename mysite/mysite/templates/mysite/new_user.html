@@ -2,7 +2,7 @@
 {% block content %}
 {% if user.is_authenticated %}
     <p>Welcome, {{ user.username }}. You are already logged in to an account.</p>
-    <p><a href="{% url 'logout' %}">Logout</a></p>
+    <p><a href="{% url 'accounts:logout' %}">Logout</a></p>
 {% else %}
     <h2>Registration form</h2>
     <p>Please fill out the form below to register</p>

@@ -41,13 +41,15 @@ class ContactForm(forms.ModelForm):
 
 
 class CreateUserForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CreateUserForm, self).__init__(*args, **kwargs)
+        # Making first_name required
+        self.fields['first_name'].required = True
+        self.fields['email'].required = True
+
     # set the css of required fields
     required_css_class = 'required'
 
-    confirm_email = forms.EmailField(
-        label="Confirm email",
-        required=True,
-    )
     password1 = forms.CharField(
         label='Password', widget=forms.PasswordInput, required=True
     )
@@ -57,7 +59,7 @@ class CreateUserForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'password1', 'password2', 'email', 'confirm_email', 'first_name', 'last_name', ]
+        fields = ['username', 'password1', 'password2', 'email', 'first_name', 'last_name', ]
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -66,17 +68,6 @@ class CreateUserForm(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Passwords don't match")
         return password2
-
-    def clean_confirm_email(self):
-
-        if (self.cleaned_data.get('email') !=
-                self.cleaned_data.get('confirm_email')):
-
-            raise ValidationError(
-                "Email addresses must match."
-            )
-
-        return self.cleaned_data.get('confirm_email')
 
     def clean_username(self):
         username = self.cleaned_data['username']
