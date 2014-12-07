@@ -3,10 +3,16 @@ from django.conf import settings
 from django.db.models import Min, Sum, Count
 
 
+class OrderManager(models.Manager):
+    def open_order(self, user):
+        return super(OrderManager, self).get_queryset().filter(open=True, ordered_by=user)
+
+
 class Order(models.Model):
     date = models.DateField(auto_now_add=True)
     open = models.BooleanField(default=True)
     ordered_by = models.ForeignKey(settings.AUTH_USER_MODEL)
+    objects = OrderManager()
 
     @property
     def total_ex(self):

@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericRelation
 from orders.models import OrderItem
 
-
+from orders.models import Vat
 
 class Venue(models.Model):
     name = models.CharField(max_length=50)
@@ -60,9 +60,14 @@ class Pricing(models.Model):
     title = models.CharField(max_length=50)
     value = models.DecimalField(max_digits=5, decimal_places=2)
     online_book = models.BooleanField(default=False)
+    vat = models.ForeignKey(Vat)
+
+    @property
+    def value_inc(self):
+        return self.value * (1 + self.vat.used_rate)
 
     def __unicode__(self):  # __unicode__ on Python 2
-        return self.title + " &pound;" + str(self.value)
+        return self.title + " &pound;" + '%.2f' % self.value_inc
 
 
 class Booking(models.Model):

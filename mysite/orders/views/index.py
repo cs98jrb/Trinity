@@ -12,9 +12,14 @@ def index(request):
         event_time__gte=timezone.now()
     )[:5]
 
-    order_list = Order.objects.filter(
-        ordered_by=request.user
+    #order_list = Order.objects.filter(
+    #    ordered_by=request.user
+    #)
+
+    order_list = Order.objects.open_order(
+        user=request.user
     )
+
     return render(request, 'orders/index.html', {
         'event_list': event_list,
         'order_list': order_list,

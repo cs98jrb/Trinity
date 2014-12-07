@@ -26,7 +26,7 @@
             {% if order.vat_inf %}
                 <td class="align_right">{{ lines.vat.rate_pc|floatformat:2 }}%</td>
             {% endif %}
-            <td class="align_right">{{ lines.value_inc|floatformat:2 }}</td>
+            <td class="align_right">{{ lines.value|floatformat:2 }}</td>
         </tr>
     {% endfor %}
     <tr>

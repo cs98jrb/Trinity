@@ -58,7 +58,7 @@ def book(request, event_id):
             # process the data in form.cleaned_data as required
 
             pricing = online_pricing[0]
-            form.save(event_id=event_id, price=pricing)
+            form.save(event=event, price=pricing, user=request.user)
 
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('events:thankyou'))

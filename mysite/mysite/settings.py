@@ -119,4 +119,5 @@ AUTH_USER_MODEL = 'auth.User'
 LOGIN_REDIRECT_URL = '/'
 
 # vat registered
-VAT_REGISTERED = 'True'
+# False or the vat registration number
+VAT_REGISTERED = False

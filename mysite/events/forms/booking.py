@@ -6,7 +6,7 @@ from django.contrib.auth import login, authenticate
 
 from events.models import Booking
 
-from orders.models import Order
+from orders.models import Order, OrderItem
 
 
 class BookingForm(forms.ModelForm):
@@ -24,14 +24,33 @@ class BookingForm(forms.ModelForm):
         model = Booking
         fields = ['quantity', ]
 
-    def save(self, event_id, price, commit=True, login=True):
+    def save(self, event, price, user):
+        from django.contrib.contenttypes.models import ContentType
         # Hash the password
         booking = super(BookingForm, self).save(commit=False)
-        booking.event_id = event_id
+        booking.event = event
         booking.price = price
+        booking.save()
 
-        if commit:
-            booking.save()
+        # Add to open order
+        open_order_list = Order.objects.open_order(user=user)
+        if open_order_list:
+            order = open_order_list[0]
+        else:
+            order = Order(ordered_by=user)
+
+        order.save()
+
+        order_item = OrderItem(
+            order=order,
+            description=event.__unicode__(),
+            value=(price.value*booking.quantity),
+            vat=price.vat,
+            content_type=ContentType.objects.get_for_model(booking),
+            object_id=booking.id
+        )
+
+        order_item.save()
 
         return booking
 
