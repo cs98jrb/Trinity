@@ -29,8 +29,10 @@ class Event(models.Model):
     @property
     def fully_booked(self):
         if self.capacity > 0:
-            bookings = self.booking_set.aggregate(total=models.Sum('quantity'))
-            if bookings['total'] < self.capacity:
+            bookings = self.booking_set.filter(confirmed=True).aggregate(total=models.Sum('quantity'))
+            total = int(bookings['total'] or 0)
+
+            if total < self.capacity:
                 return False
             else:
                 return True
@@ -40,9 +42,11 @@ class Event(models.Model):
     @property
     def num_spaces(self):
         if self.capacity > 0:
-            bookings = self.booking_set.aggregate(total=models.Sum('quantity'))
-            if bookings['total'] < self.capacity:
-                return self.capacity - bookings['total']
+            bookings = self.booking_set.filter(confirmed=True).aggregate(total=models.Sum('quantity'))
+            total = int(bookings['total'] or 0)
+
+            if total < self.capacity:
+                return self.capacity - total
             else:
                 return 0
         else:
@@ -75,6 +79,7 @@ class Booking(models.Model):
     event = models.ForeignKey(Event)
     price = models.ForeignKey(Pricing)
     quantity = models.IntegerField()
+    confirmed = models.BooleanField(default=False)
     order_item = GenericRelation(OrderItem)
 
     def __unicode__(self):  # __unicode__ on Python 2

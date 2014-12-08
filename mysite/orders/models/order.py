@@ -47,5 +47,17 @@ class Order(models.Model):
     def vat_num(self):
         return settings.VAT_REGISTERED
 
+    def save(self, *args, **kwargs):
+        if getattr(self, 'open', True):
+            status = False
+        else:
+            status = True
+
+        for order_item in self.orderitem_set.all():
+            order_item.content_object.confirmed = status
+            order_item.content_object.save()
+
+        super(Order, self).save(*args, **kwargs)
+
     def __unicode__(self):  # __unicode__ on Python 2
         return str(self.pk) + " " + self.date.strftime('%d/%m/%Y')

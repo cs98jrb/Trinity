@@ -14,7 +14,7 @@ class PaymentType(models.Model):
 
 
 class Payment(models.Model):
-    order = models.ForeignKey(Order)
+    order = models.ForeignKey(Order, related_name='payment')
     type = models.ForeignKey(PaymentType)
     date = models.DateField()
     payed = models.BooleanField(default=False)

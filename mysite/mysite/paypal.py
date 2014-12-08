@@ -41,7 +41,8 @@ def paypal_create(request):
                     "currency": "GBP",
                     "quantity": 1,
                     "sku": "2"
-                }]},
+                }]
+            },
             "amount":  {
                 "total": "20.00",
                 "currency": "GBP"

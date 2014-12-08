@@ -53,6 +53,7 @@ INSTALLED_APPS = (
     'accounts',
     'system_emails',
     'mysite',
+    'paypal',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -120,4 +121,4 @@ LOGIN_REDIRECT_URL = '/'
 
 # vat registered
 # False or the vat registration number
-VAT_REGISTERED = False
+VAT_REGISTERED = 'False'

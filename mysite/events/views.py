@@ -55,13 +55,16 @@ def book(request, event_id):
         form = BookingForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
+            from orders.models import Order
             # process the data in form.cleaned_data as required
 
             pricing = online_pricing[0]
             form.save(event=event, price=pricing, user=request.user)
 
+            open_order = Order.objects.open_order(request.user)
+
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('events:thankyou'))
+            return HttpResponseRedirect(reverse('orders:detail', kwargs={'order_id': open_order[0].id}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
