@@ -16,7 +16,7 @@ class PaymentType(models.Model):
 class Payment(models.Model):
     order = models.ForeignKey(Order, related_name='payment')
     type = models.ForeignKey(PaymentType)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     payed = models.BooleanField(default=False)
     payment_ref = models.CharField(max_length=150, null=True, blank=True)
     value_exc = models.DecimalField(default=0, max_digits=6, decimal_places=2)

@@ -40,9 +40,9 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # paypal
-    url(r'^paypal/$', include('paypal.urls', namespace='paypal')),
+    url(r'^paypal/', include('paypal.urls', namespace='paypal')),
     #url(r'^paypal/create/$', paypal.paypal_create, name='paypal_create'),
-    url(r'^paypal/execute/$', paypal.paypal_execute, name='paypal_execute'),
+    #url(r'^paypal/execute/$', paypal.paypal_execute, name='paypal_execute'),
 
     # Login
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),

@@ -31,7 +31,7 @@ def register(request):
         order.save()
         return HttpResponse('<h2>No Payment required</h2>')
 
-    logging.basicConfig(level=logging.DEBUG)
+    #logging.basicConfig(level=logging.DEBUG)
 
     paypalrestsdk.configure({
         "mode": settings.PAYPAL_MODE,
@@ -64,16 +64,13 @@ def register(request):
         }
         items.append(line_entry)
 
-    print(items)
-    print(order.total_inc)
-
     payment_inf = {
         "intent": "sale",
         "payer": {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": request.build_absolute_uri(reverse('paypal_execute')),
+            "return_url": request.build_absolute_uri(reverse("paypal:execute")),
             "cancel_url": request.build_absolute_uri(reverse('home page')) },
         "transactions": [{
             "item_list": {
@@ -86,8 +83,6 @@ def register(request):
             "description": "Trinity Williams"
         }]
     }
-
-    print(payment_inf)
 
     payment = paypalrestsdk.Payment(payment_inf)
 
