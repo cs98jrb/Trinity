@@ -19,7 +19,6 @@ class Payment(models.Model):
     date = models.DateField(auto_now_add=True)
     payed = models.BooleanField(default=False)
     payment_ref = models.CharField(max_length=150, null=True, blank=True)
-    value_exc = models.DecimalField(default=0, max_digits=6, decimal_places=2)
     value_inc = models.DecimalField(default=0, max_digits=6, decimal_places=2)
 
     def __unicode__(self):

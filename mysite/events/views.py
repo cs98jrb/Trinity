@@ -1,6 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 
@@ -48,6 +49,13 @@ def book(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     pricing_set = event.pricing_set
     online_pricing = event.pricing_set.all().filter(online_book=True)
+    pricing = online_pricing[0]
+
+    if event.pricing_set.all().filter(online_book=True)\
+            and not event.fully_booked:
+        booking = True
+    else:
+        booking = False
 
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -58,23 +66,25 @@ def book(request, event_id):
             from orders.models import Order
             # process the data in form.cleaned_data as required
 
-            pricing = online_pricing[0]
-            form.save(event=event, price=pricing, user=request.user)
+            try:
+                form.save(event=event, price=pricing, user=request.user)
+                open_order = Order.objects.open_order(request.user)
 
-            open_order = Order.objects.open_order(request.user)
+                # redirect to a new URL:
+                return HttpResponseRedirect(reverse('orders:detail', kwargs={'order_id': open_order[0].id}))
+            except ValidationError as e:
+                form.add_error('quantity', e)
 
-            # redirect to a new URL:
-            return HttpResponseRedirect(reverse('orders:detail', kwargs={'order_id': open_order[0].id}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = BookingForm()
 
-    return render(request, 'events/book.html', {
+    return render(request, 'events/detail.html', {
         'event_list': event_list,
         'event': event,
-        'pricing_set': pricing_set,
-        'online_pricing': online_pricing,
+        'bookable': booking,
+        'request': request,
         'form': form,
     })
 

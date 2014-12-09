@@ -4,11 +4,13 @@ import logging
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
-from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.utils import timezone
 from django.conf import settings
 
 from orders.models import Order
 from paypal.models import Payment
+from events.models import Event
 
 
 def register(request):
@@ -16,20 +18,44 @@ def register(request):
     MyApp > Paypal > Create a Payment
     """
 
+    event_list = Event.objects.filter(
+        event_time__gte=timezone.now()
+    )[:5]
+
+    error = ''
+
     # Check for open order
     if request.user.is_authenticated():
         open_order_list = Order.objects.open_order(user=request.user)
         if not open_order_list:
-            return HttpResponse('<h2>No Order</h2>')
+            error += '<p>No unpaid order</p>'
     else:
-        return HttpResponse('<h2>Login Required</h2>')
+        error += '<p>You need to log in</p>'
 
+    if error:
+        return render(request, 'paypal/errors.html', {
+            'event_list': event_list,
+            'error': error,
+        })
+
+
+    # Close the order while taking payment
     order = open_order_list[0]
+    order.open = False
+    try:
+        order.save()
+    except ValueError as e:
+        return render(request, 'paypal/errors.html', {
+            'event_list': event_list,
+            'error': e,
+        })
 
     if order.total_ex == 0:
-        order.open = False
-        order.save()
-        return HttpResponse('<h2>No Payment required</h2>')
+        error += '<h2>No Payment required</h2>'
+        return render(request, 'paypal/errors.html', {
+            'event_list': event_list,
+            'error': error,
+        })
 
     #logging.basicConfig(level=logging.DEBUG)
 
@@ -92,8 +118,8 @@ def register(request):
         # Store payment id in user session
         request.session['payment_id'] = payment.id
 
-        register_pament = Payment(ref=payment.id,related_order=order,value=order.total_inc)
-        register_pament.save()
+        register_payment = Payment(ref=payment.id,related_order=order,value=order.total_inc)
+        register_payment.save()
 
         # Redirect the user to given approval url
         for link in payment.links:
@@ -103,5 +129,9 @@ def register(request):
 
     else:
         messages.error(request, 'We are sorry but something went wrong. We could not redirect you to Paypal.')
-        return HttpResponse('<p>We are sorry but something went wrong. We could not redirect you to Paypal.</p><p>'+str(payment.error)+'</p>')
+        error += '<p>We are sorry but something went wrong. We could not redirect you to Paypal.</p><p>'+str(payment.error)+'</p>'
+        return render(request, 'paypal/errors.html', {
+            'event_list': event_list,
+            'error': error,
+        })
         #return HttpResponseRedirect(reverse('thank you'))

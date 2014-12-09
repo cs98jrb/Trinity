@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from django.db import models, migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='EmailInf',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('name', models.CharField(max_length=50)),
+                ('email', models.EmailField(max_length=75)),
+                ('message', models.TextField()),
+                ('sent_date', models.DateTimeField(auto_now_add=True, verbose_name=b'date published')),
+            ],
+            options={
+                'ordering': ['sent_date'],
+            },
+            bases=(models.Model,),
+        ),
+    ]

@@ -1,6 +1,8 @@
+from django.utils.translation import ugettext as _
 from django.db import models
 
 from django.contrib.contenttypes.fields import GenericRelation
+from django.core.exceptions import ValidationError
 from orders.models import OrderItem
 
 from orders.models import Vat
@@ -81,6 +83,14 @@ class Booking(models.Model):
     quantity = models.IntegerField()
     confirmed = models.BooleanField(default=False)
     order_item = GenericRelation(OrderItem)
+
+    def save(self, *args, **kwargs):
+        if self.pk:
+            old_instance = Booking.objects.get(pk=self.pk)
+            if not old_instance.confirmed and self.pk and self.confirmed and self.quantity > self.event.num_spaces:
+                # Not enough space
+                raise ValueError("Not enough spaces")
+        super(Booking, self).save(*args, **kwargs)
 
     def __unicode__(self):  # __unicode__ on Python 2
         data = str(self.event)
