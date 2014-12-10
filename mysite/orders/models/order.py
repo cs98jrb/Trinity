@@ -1,9 +1,18 @@
 from django.db import models
 from django.conf import settings
 from django.db.models import Min, Sum, Count
+from django.utils import timezone
+from datetime import timedelta
 
 
 class OrderManager(models.Manager):
+    def failed_payment(self):
+        return super(OrderManager, self).get_queryset().filter(
+            waiting_payment=True,
+            open=True,
+            last_change__lt=(timezone.now() - timedelta(minutes=settings.PAYPAL_HOLD_BOOKING))
+        )
+
     def open_order(self, user):
         return super(OrderManager, self).get_queryset().filter(open=True, ordered_by=user)
 
@@ -13,6 +22,8 @@ class Order(models.Model):
     open = models.BooleanField(default=True)
     ordered_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     objects = OrderManager()
+    last_change = models.DateTimeField(auto_now=True)
+    waiting_payment = models.BooleanField(default=False)
 
     @property
     def total_ex(self):
@@ -48,10 +59,10 @@ class Order(models.Model):
         return settings.VAT_REGISTERED
 
     def save(self, *args, **kwargs):
-        if getattr(self, 'open', True):
-            status = False
-        else:
+        if not self.open or self.waiting_payment:
             status = True
+        else:
+            status = False
 
         for order_item in self.orderitem_set.all():
             order_item.content_object.confirmed = status

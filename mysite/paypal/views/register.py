@@ -38,10 +38,11 @@ def register(request):
             'error': error,
         })
 
-
     # Close the order while taking payment
     order = open_order_list[0]
-    order.open = False
+    order.waiting_payment = True
+    print (order)
+
     try:
         order.save()
     except ValueError as e:
@@ -97,7 +98,7 @@ def register(request):
         },
         "redirect_urls": {
             "return_url": request.build_absolute_uri(reverse("paypal:execute")),
-            "cancel_url": request.build_absolute_uri(reverse('home page')) },
+            "cancel_url": request.build_absolute_uri(reverse('paypal:cancel')) },
         "transactions": [{
             "item_list": {
                 "items": items
@@ -118,7 +119,7 @@ def register(request):
         # Store payment id in user session
         request.session['payment_id'] = payment.id
 
-        register_payment = Payment(ref=payment.id,related_order=order,value=order.total_inc)
+        register_payment = Payment(ref=payment.id, related_order=order, value=order.total_inc)
         register_payment.save()
 
         # Redirect the user to given approval url

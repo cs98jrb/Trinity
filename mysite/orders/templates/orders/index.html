@@ -5,6 +5,27 @@
     {% for order in order_list %}
     <li><a href="{% url 'orders:detail' order.id %}">{{ order.date }}</a></li>
     {% endfor %}
+    <h2>Bookings</h2>
+    <table style="width: 90%; margin: auto">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Venue</th>
+                <th>Num People</th>
+                <th>Reference number</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.venue }}</td>
+                <td>{{ booking.num_people }}</td>
+                <td>{{ booking.ref }}</td>
+            </tr>
+    {% endfor %}
+        </tbody>
+</table>
 {% else %}
     <p>You have no orders.</p>
 {% endif %}

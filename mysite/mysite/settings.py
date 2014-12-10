@@ -112,10 +112,12 @@ MEDIA_ROOT = BASE_DIR+'/media/'
 
 # Paypal options
 PAYPAL_MODE = 'sandbox' # sandbox or live
-# PAYPAL_CLIENT_ID =     'ASw3vhBaRKZVrThqc-Clfbgguu9-olLHrBxYrLOF830fJWQMdGrAVfMra_Eo'
-# PAYPAL_CLIENT_SECRET = 'EFd4EBDqRiPSDRgIX_tP0IZgGVg5-dvB9fLQqXRhywtpmNnG1--8ozFl_txn'
 PAYPAL_CLIENT_ID =     'AY7PlxBVTw-rC9B2DkDXzJ8n-VIRLRI3ix1v743CPib8UtqjWMqKDsrEZDig'
 PAYPAL_CLIENT_SECRET = 'ELL5tRAFy2c6_D3oNU4tSscVvOMlQdqC4koyqirnPFJJEHT5VW5llmI89_U5'
+#PAYPAL_MODE = 'live' # sandbox or live
+#PAYPAL_CLIENT_ID =     'ARlnjRDmelrLjCdt1ETnW84N_by2HGyHZcFgz5yWvtuVBzN-O1qmlYXmswB3'
+#PAYPAL_CLIENT_SECRET = 'EH1MORAZQ9cDeTGXy2E4AmH63SOTe94xbeoPQkW6O9MFfWo5Hj-ErC74ZjHj'
+PAYPAL_HOLD_BOOKING = 5
 
 # change user model
 AUTH_USER_MODEL = 'auth.User'
@@ -123,4 +125,4 @@ LOGIN_REDIRECT_URL = '/'
 
 # vat registered
 # False or the vat registration number
-VAT_REGISTERED = 'False'
+VAT_REGISTERED = False

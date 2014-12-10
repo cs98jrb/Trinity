@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     url(r'^$', views.register, name='register'),
     # ex: /events/5/
     url(r'^/execute/$', views.execute, name='execute'),
+    url(r'^/cancel/$', views.cancel, name='cancel'),
 )

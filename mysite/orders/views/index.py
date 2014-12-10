@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render
 
-from events.models import Event
+from events.models import Event, Booking
 from orders.models import Order
 
 @login_required
@@ -16,11 +16,27 @@ def index(request):
     #    ordered_by=request.user
     #)
 
-    order_list = Order.objects.open_order(
-        user=request.user
+    order_list = Order.objects.filter(
+        ordered_by=request.user
+    )[:10]
+
+    bookings = []
+
+    booking_list = Booking.objects.filter(
+        booked_by=request.user
     )
+    if booking_list:
+        for booking in booking_list:
+            bookings.append({
+                'date': booking.event.event_time,
+                'venue': booking.event.venue,
+                'num_people': booking.quantity,
+                'ref': booking.ref
+                })
+
 
     return render(request, 'orders/index.html', {
         'event_list': event_list,
         'order_list': order_list,
+        'bookings': bookings,
     })

@@ -1,5 +1,6 @@
 from django.utils.translation import ugettext as _
 from django.db import models
+from django.conf import settings
 
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
@@ -77,6 +78,8 @@ class Pricing(models.Model):
 
 
 class Booking(models.Model):
+    ref = models.CharField(max_length=8, default='x')
+    booked_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     booked = models.DateField('date booked', auto_now_add=True)
     event = models.ForeignKey(Event)
     price = models.ForeignKey(Pricing)
@@ -90,6 +93,12 @@ class Booking(models.Model):
             if not old_instance.confirmed and self.pk and self.confirmed and self.quantity > self.event.num_spaces:
                 # Not enough space
                 raise ValueError("Not enough spaces")
+
+        else:
+            import pytz, datetime
+            from django.utils import timezone
+            default_val = ("xxxxxxxx"+hex(int((timezone.now() - pytz.utc.localize(datetime.datetime(1970,1,1))).total_seconds())))[-8:]
+            self.ref = default_val
         super(Booking, self).save(*args, **kwargs)
 
     def __unicode__(self):  # __unicode__ on Python 2

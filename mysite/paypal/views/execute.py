@@ -44,12 +44,16 @@ def execute(request):
         )
         order_payment.save()
         order.open = False
+        order.waiting_payment = False
         order.save()
 
+        del request.session['payment_id']
         return HttpResponse('<p>the payment "'+payment_name+'" has been accepted</p>')
     else:
         # the payment is not valid
         # Re-open order as payment was not taken
         order.open = True
+        order.waiting_payment = False
         order.save()
+        del request.session['payment_id']
         return HttpResponse('<p>We are sorry but something went wrong. </p><p>'+str(payment.error)+'</p>')
