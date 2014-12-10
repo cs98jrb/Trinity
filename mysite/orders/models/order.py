@@ -65,6 +65,7 @@ class Order(models.Model):
             status = False
 
         for order_item in self.orderitem_set.all():
+            print(order_item.content_object)
             order_item.content_object.confirmed = status
             order_item.content_object.save()
 

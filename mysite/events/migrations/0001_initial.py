@@ -14,8 +14,10 @@ class Migration(migrations.Migration):
             name='Booking',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('ref', models.CharField(default=b'x', max_length=8)),
                 ('booked', models.DateField(auto_now_add=True, verbose_name=b'date booked')),
-                ('number_attending', models.IntegerField()),
+                ('quantity', models.IntegerField()),
+                ('confirmed', models.BooleanField(default=False)),
             ],
             options={
             },
@@ -64,23 +66,5 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
-        ),
-        migrations.AddField(
-            model_name='event',
-            name='venue',
-            field=models.ForeignKey(to='events.Venue'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='booking',
-            name='event',
-            field=models.ForeignKey(to='events.Event'),
-            preserve_default=True,
-        ),
-        migrations.AddField(
-            model_name='booking',
-            name='price',
-            field=models.ForeignKey(to='events.Pricing'),
-            preserve_default=True,
         ),
     ]

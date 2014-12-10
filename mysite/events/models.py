@@ -85,7 +85,6 @@ class Booking(models.Model):
     price = models.ForeignKey(Pricing)
     quantity = models.IntegerField()
     confirmed = models.BooleanField(default=False)
-    order_item = GenericRelation(OrderItem)
 
     def save(self, *args, **kwargs):
         if self.pk:

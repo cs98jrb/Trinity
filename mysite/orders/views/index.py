@@ -23,7 +23,8 @@ def index(request):
     bookings = []
 
     booking_list = Booking.objects.filter(
-        booked_by=request.user
+        booked_by=request.user,
+        confirmed=True,
     )
     if booking_list:
         for booking in booking_list:
@@ -34,6 +35,8 @@ def index(request):
                 'ref': booking.ref
                 })
 
+    if len(bookings) == 0:
+        bookings = None
 
     return render(request, 'orders/index.html', {
         'event_list': event_list,

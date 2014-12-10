@@ -19,6 +19,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('date', models.DateField(auto_now_add=True)),
                 ('open', models.BooleanField(default=True)),
+                ('last_change', models.DateTimeField(auto_now=True)),
+                ('waiting_payment', models.BooleanField(default=False)),
             ],
             options={
             },
@@ -52,12 +54,11 @@ class Migration(migrations.Migration):
             name='Payment',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('date', models.DateField()),
+                ('date', models.DateField(auto_now_add=True)),
                 ('payed', models.BooleanField(default=False)),
                 ('payment_ref', models.CharField(max_length=150, null=True, blank=True)),
-                ('value_exc', models.DecimalField(default=0, max_digits=6, decimal_places=2)),
                 ('value_inc', models.DecimalField(default=0, max_digits=6, decimal_places=2)),
-                ('order', models.ForeignKey(to='orders.Order')),
+                ('order', models.ForeignKey(related_name='payment', to='orders.Order')),
             ],
             options={
             },

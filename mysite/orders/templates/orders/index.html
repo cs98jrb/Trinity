@@ -6,6 +6,7 @@
     <li><a href="{% url 'orders:detail' order.id %}">{{ order.date }}</a></li>
     {% endfor %}
     <h2>Bookings</h2>
+    {% if bookings %}
     <table style="width: 90%; margin: auto">
         <thead>
             <tr>
@@ -26,6 +27,9 @@
     {% endfor %}
         </tbody>
 </table>
+    {% else %}
+        <p>No confirmed bookings</p>
+    {% endif %}
 {% else %}
     <p>You have no orders.</p>
 {% endif %}

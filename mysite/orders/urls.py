@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # ex: /events/5/
     url(r'^(?P<order_id>\d+)/$', views.detail, name='detail'),
     # ex: /polls/5/results/
-    url(r'^(?P<order_id>\d+)/pay/$', views.pay, name='pay'),
+    url(r'^(?P<order_id>\d+)/cancel/$', views.cancel, name='cancel'),
     # ex: /polls/5/vote/
     #url(r'^(?P<question_id>\d+)/vote/$', views.vote, name='vote'),
 )

@@ -7,14 +7,15 @@ from django.db.models import Min, Sum, Count
 from orders.models import Order
 from events.models import Event
 
+from orders.views import index
 
-def pay(request, order_id):
+
+def cancel(request, order_id):
     event_list = Event.objects.filter(
         event_time__gte=timezone.now()
     )[:5]
     order = get_object_or_404(Order, pk=order_id)
 
-    return render(request, 'orders/detail.html', {
-        'event_list': event_list,
-        'order': order,
-    })
+    order.delete(request)
+
+    return index(request)
