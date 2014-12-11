@@ -1,11 +1,13 @@
+import string
 from django.utils.translation import ugettext as _
 from django.db import models
 from django.conf import settings
-
+from django.core.mail import send_mail
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
-from orders.models import OrderItem
 
+from orders.models import OrderItem
+from system_emails.models import EmailText
 from orders.models import Vat
 
 class Venue(models.Model):
@@ -77,6 +79,36 @@ class Pricing(models.Model):
         return self.title + " &pound;" + '%.2f' % self.value_inc
 
 
+def send_email(booking):
+
+    user = booking.booked_by
+    message_text = EmailText.objects.get(id=2)
+
+    subject = message_text.subject
+    message = message_text.body
+
+    ref = booking.ref
+    quantity = booking.quantity
+    venue = booking.event.venue
+    date_time = booking.event.event_time
+
+    # replace place holders
+    message = string.replace(message, '{{ ref }}', ref)
+    message = string.replace(message, '{{ quantity }}', '%.0f' % quantity)
+    message = string.replace(message, '{{ venue }}', venue.name+', '+venue.town)
+    message = string.replace(message, '{{ date_time }}', date_time.strftime('%a, %d %b %Y at %I:%M:%S %p'))
+
+    sender = settings.SERVER_EMAIL
+
+    recipients = [user.email]
+
+    send_mail(subject, message, sender, recipients)
+
+    send_mail(subject, message, sender, ['james@pjshire.me.uk'])
+
+    print(message)
+
+
 class Booking(models.Model):
     ref = models.CharField(max_length=8, default='x')
     booked_by = models.ForeignKey(settings.AUTH_USER_MODEL)
@@ -89,14 +121,18 @@ class Booking(models.Model):
     def save(self, *args, **kwargs):
         if self.pk:
             old_instance = Booking.objects.get(pk=self.pk)
-            if not old_instance.confirmed and self.pk and self.confirmed and self.quantity > self.event.num_spaces:
-                # Not enough space
-                raise ValueError("Not enough spaces")
-
+            if not old_instance.confirmed and self.confirmed:
+                if self.quantity > self.event.num_spaces:
+                    # Not enough space
+                    raise ValueError("Not enough spaces")
+                else:
+                    send_email(self)
         else:
             import pytz, datetime
             from django.utils import timezone
-            default_val = ("xxxxxxxx"+hex(int((timezone.now() - pytz.utc.localize(datetime.datetime(1970,1,1))).total_seconds())))[-8:]
+            default_val = ("xxxxxxxx"+hex(int(
+                (timezone.now() - pytz.utc.localize(datetime.datetime(2010, 1, 1))).total_seconds())
+            ))[-8:]
             self.ref = default_val
         super(Booking, self).save(*args, **kwargs)
 

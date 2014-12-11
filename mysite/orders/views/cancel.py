@@ -16,6 +16,6 @@ def cancel(request, order_id):
     )[:5]
     order = get_object_or_404(Order, pk=order_id)
 
-    order.delete(request)
+    order.delete()
 
     return index(request)

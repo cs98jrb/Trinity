@@ -1,6 +1,7 @@
 {% extends "mysite/base.html" %}
 {% block content %}
 <h2>{{ event.title }}</h2>
+    <h3>{{ event.venue.name }}, {{ event.venue.town }} on {{ event.event_time }}</h3>
 <div>
     <p>
         {{ event.description|safe }}

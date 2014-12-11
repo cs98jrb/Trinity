@@ -19,10 +19,10 @@
         <tbody>
     {% for booking in bookings %}
             <tr>
-                <td>{{ booking.date }}</td>
-                <td>{{ booking.venue }}</td>
-                <td>{{ booking.num_people }}</td>
-                <td>{{ booking.ref }}</td>
+                <td><a href="{% url 'events:detail' booking.event_id %}">{{ booking.date }}</a></td>
+                <td><a href="{% url 'events:detail' booking.event_id %}">{{ booking.venue }}</a></td>
+                <td><a href="{% url 'events:detail' booking.event_id %}">{{ booking.num_people }}</a></td>
+                <td><a href="{% url 'events:detail' booking.event_id %}">{{ booking.ref }}</a></td>
             </tr>
     {% endfor %}
         </tbody>

@@ -50,9 +50,13 @@
         </tr>
     {% endif %}
     </table>
-    <a href="{% url 'paypal:register' %}">
-        <img src="https://www.paypalobjects.com/en_US/i/btn/x-click-but6.gif" align="left" style="margin-right:7px;">
-    </a>
+    {% if order.open %}
+    <p>
+    <a href="{% url 'paypal:register' %}"><img src="https://www.paypalobjects.com/en_US/i/btn/x-click-but6.gif" style="margin-right:7px; vertical-align: middle"></a>
+    OR
+    <a href="{% url 'orders:cancel' order.id %}" class="button">Cancel Order</a>
+    </p>
+    {% endif %}
 
 
 {% endblock %}

@@ -32,7 +32,8 @@ def index(request):
                 'date': booking.event.event_time,
                 'venue': booking.event.venue,
                 'num_people': booking.quantity,
-                'ref': booking.ref
+                'ref': booking.ref,
+                'event_id': booking.event.id,
                 })
 
     if len(bookings) == 0:

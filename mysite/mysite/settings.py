@@ -85,7 +85,9 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-GB'
+LANGUAGE_CODE = 'en-gb'
+
+LOCALE_NAME = 'en_gb'
 
 TIME_ZONE = 'Europe/London'
 
@@ -111,12 +113,12 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR+'/media/'
 
 # Paypal options
-#PAYPAL_MODE = 'sandbox' # sandbox or live
-#PAYPAL_CLIENT_ID =     'AY7PlxBVTw-rC9B2DkDXzJ8n-VIRLRI3ix1v743CPib8UtqjWMqKDsrEZDig'
-#PAYPAL_CLIENT_SECRET = 'ELL5tRAFy2c6_D3oNU4tSscVvOMlQdqC4koyqirnPFJJEHT5VW5llmI89_U5'
-PAYPAL_MODE = 'live' # sandbox or live
-PAYPAL_CLIENT_ID =     'AXhiPxBPpI3Urddmb1y_pEPdMWhDzRulE2wNS5kbI1kE2ismaECrafHR-0nY'
-PAYPAL_CLIENT_SECRET = 'EMTpyRBj2nM09NNl3EQvvCNmG6eiMgXk4OwbQ0O7Gfez7XAomcLjMEXysHh8'
+PAYPAL_MODE = 'sandbox' # sandbox or live
+PAYPAL_CLIENT_ID =     'AY7PlxBVTw-rC9B2DkDXzJ8n-VIRLRI3ix1v743CPib8UtqjWMqKDsrEZDig'
+PAYPAL_CLIENT_SECRET = 'ELL5tRAFy2c6_D3oNU4tSscVvOMlQdqC4koyqirnPFJJEHT5VW5llmI89_U5'
+#PAYPAL_MODE = 'live' # sandbox or live
+#PAYPAL_CLIENT_ID =     'AXhiPxBPpI3Urddmb1y_pEPdMWhDzRulE2wNS5kbI1kE2ismaECrafHR-0nY'
+#PAYPAL_CLIENT_SECRET = 'EMTpyRBj2nM09NNl3EQvvCNmG6eiMgXk4OwbQ0O7Gfez7XAomcLjMEXysHh8'
 PAYPAL_HOLD_BOOKING = 30
 
 # change user model
