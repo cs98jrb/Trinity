@@ -1,0 +1,19 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+
+<h2>Testimonials</h2>
+    {% for testimonial in test_list %}
+        <p><a href="{% url 'testimonials:detail' testimonial.id %}">{{ testimonial }}</a></p>
+    {% endfor %}
+    {% if test_list.has_previous %}
+        <a href="?page={{ test_list.previous_page_number }}" class="button">previous</a>
+    {% endif %}
+
+    <span class="current">
+        Page {{ test_list.number }} of {{ test_list.paginator.num_pages }}.
+    </span>
+
+    {% if test_list.has_next %}
+        <a href="?page={{ test_list.next_page_number }}" class="button">next</a>
+    {% endif %}
+{% endblock %}

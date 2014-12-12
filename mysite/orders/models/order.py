@@ -59,14 +59,20 @@ class Order(models.Model):
         return settings.VAT_REGISTERED
 
     def save(self, *args, **kwargs):
-        if not self.open or self.waiting_payment:
-            status = True
+        if self.open:
+            confirmed = False
         else:
-            status = False
+            confirmed = True
+
+        if self.waiting_payment:
+            payment_pending = True
+        else:
+            payment_pending = False
 
         for order_item in self.orderitem_set.all():
             print(order_item.content_object)
-            order_item.content_object.confirmed = status
+            order_item.content_object.confirmed = confirmed
+            order_item.content_object.payment_pending = payment_pending
             order_item.content_object.save()
 
         super(Order, self).save(*args, **kwargs)

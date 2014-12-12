@@ -6,14 +6,16 @@
     <p>
         {{ event.description|safe }}
     </p>
+    <ul>
     {% if event.pricing_set %}
         {% for price in event.pricing_set.all %}
-            <p>{{ price|safe }}</p>
+            <li><p>{{ price|safe }}</p></li>
         {% endfor %}
     {% endif %}
+    </ul>
     {% if bookable %}
-        {% if event.num_spaces < 999 %}
-            <p>Currently {{ event.num_spaces }} spaces left</p>
+        {% if event.num_spaces < 10 %}
+            <p>Only {{ event.num_spaces }} spaces left</p>
         {% endif %}
         {% if user.is_authenticated %}
 <form action="{% url 'events:book' event.id %}" method="post">

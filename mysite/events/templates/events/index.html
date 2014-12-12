@@ -2,9 +2,14 @@
 {% block content %}
 <h2>Event list</h2>
 {% if event_list %}
+    <ul>
     {% for event in event_list %}
-    <li><a href="{% url 'events:detail' event.id %}">{{ event.title }}</a> at {{ event.venue}} on <strong>{{ event.event_time|date:"D jS N"}}</strong></li>
+    <li><p>
+        <a href="{% url 'events:detail' event.id %}">{{ event.title }}</a><br>
+        {{ event.venue}} - {{ event.event_time|date:"D jS N"}}
+    </p></li>
     {% endfor %}
+    </ul>
 {% else %}
     <p>There are no scheduled events.</p>
 {% endif %}

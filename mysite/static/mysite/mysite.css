@@ -139,3 +139,25 @@ ul.errorlist {
     list-style-type: none;
     padding: inherit;
 }
+
+/*Event list*/
+
+ul.event_list {
+    list-style-type: none;
+    padding: inherit;
+}
+.event_list li {
+    line-height: 2.5em;
+}
+
+.event_text {
+    display: inline-block;
+    width: 75%;
+    vertical-align: middle;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.event_button{
+    display: inline-block;
+}

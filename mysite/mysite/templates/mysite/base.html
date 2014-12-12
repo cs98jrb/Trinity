@@ -100,9 +100,9 @@
         <div class="inf_box ui-tabs ui-widget ui-widget-content ui-corner-all">
             <h3 class="ui-state-active ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-tabs">Events</h3>
             <div style="margin-bottom: 5px">
-                <ul>
+                <ul class="event_list">
                 {% for event in event_list %}
-                <li style="line-height: 2.5em;">{{ event.event_time|date:"d/m/y"}} {{ event.venue}} <strong>{{ event.venue.town}}</strong> <div style="float: right;"><a class="button" href="{% url 'events:detail' event.id %}">Details</a></div></li>
+                <li><div class="event_text">{{ event.event_time|date:"d/m/y"}} {{ event.venue }}</div><div class="event_button"><a class="button" href="{% url 'events:detail' event.id %}">Details</a></div></li>
                 <hr />
                 {% endfor %}
                 </ul>
@@ -111,20 +111,23 @@
                 </div>
             </div>
         </div>
+            <p>{{ say_hello }}</p>
         {% endif %}
-        {% if review %}
         <div class="inf_box ui-tabs ui-widget ui-widget-content ui-corner-all">
             <h3 class="ui-state-active ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-tabs">What Clients Say</h3>
-            <div>
+            <div style="padding: 10px">
+                <h2>{{ testimonial.title }}</h2>
                 <p>
-                    "I saw Beverley ..."
+                    {{ testimonial.body }}
+                </p>
+                <p>
+                    - {{ testimonial.left_by.first_name }}, {{ testimonial.town }}
                 </p>
                 <div class="align_left">
-                    <a class="button">See More</a>
+                    <a href="{% url 'testimonials:index' %}" class="button">See More</a>
                 </div>
             </div>
         </div>
-        {% endif %}
         {% endblock %}
     </div>
     

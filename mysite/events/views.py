@@ -22,9 +22,6 @@ def index(request):
 
 
 def detail(request, event_id):
-    event_list = Event.objects.filter(
-        event_time__gte=timezone.now()
-    )[:5]
     event = get_object_or_404(Event, pk=event_id)
     if event.pricing_set.all().filter(online_book=True)\
             and not event.fully_booked:
@@ -33,7 +30,6 @@ def detail(request, event_id):
         booking = False
 
     return render(request, 'events/detail.html', {
-        'event_list': event_list,
         'event': event,
         'bookable': booking,
         'request': request,

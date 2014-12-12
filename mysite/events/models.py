@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.contenttypes.fields import GenericRelation
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 
 from orders.models import OrderItem
 from system_emails.models import EmailText
@@ -18,7 +19,7 @@ class Venue(models.Model):
     active = models.BooleanField(default=True)
 
     def __unicode__(self):  # __unicode__ on Python 2
-        return self.name + ", " + self.postcode
+        return self.name + ", " + self.town
 
 
 class Event(models.Model):
@@ -47,8 +48,13 @@ class Event(models.Model):
     @property
     def num_spaces(self):
         if self.capacity > 0:
-            bookings = self.booking_set.filter(confirmed=True).aggregate(total=models.Sum('quantity'))
+            bookings = self.booking_set.filter(
+                Q(confirmed=True) |
+                Q(payment_pending=True)
+            ).aggregate(total=models.Sum('quantity'))
             total = int(bookings['total'] or 0)
+
+            print(bookings)
 
             if total < self.capacity:
                 return self.capacity - total
@@ -95,7 +101,7 @@ def send_email(booking):
     # replace place holders
     message = string.replace(message, '{{ ref }}', ref)
     message = string.replace(message, '{{ quantity }}', '%.0f' % quantity)
-    message = string.replace(message, '{{ venue }}', venue.name+', '+venue.town)
+    message = string.replace(message, '{{ venue }}', venue.name+', '+venue.town+' '+venue.postcode)
     message = string.replace(message, '{{ date_time }}', date_time.strftime('%a, %d %b %Y at %I:%M:%S %p'))
 
     sender = settings.SERVER_EMAIL
@@ -108,8 +114,9 @@ def send_email(booking):
 
     print(message)
 
-
+import random
 class Booking(models.Model):
+
     ref = models.CharField(max_length=8, default='x')
     booked_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     booked = models.DateField('date booked', auto_now_add=True)
@@ -117,23 +124,29 @@ class Booking(models.Model):
     price = models.ForeignKey(Pricing)
     quantity = models.IntegerField()
     confirmed = models.BooleanField(default=False)
+    payment_pending = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if self.pk:
             old_instance = Booking.objects.get(pk=self.pk)
-            if not old_instance.confirmed and self.confirmed:
-                if self.quantity > self.event.num_spaces:
+            if not old_instance.confirmed and (
+                    self.confirmed or self.payment_pending
+            ):
+                if not old_instance.payment_pending and self.quantity > self.event.num_spaces:
                     # Not enough space
                     raise ValueError("Not enough spaces")
-                else:
+                elif self.confirmed:
                     send_email(self)
         else:
             import pytz, datetime
             from django.utils import timezone
+            rand = hex(random.SystemRandom().randint(0, 255))[2:]
+
             default_val = ("xxxxxxxx"+hex(int(
                 (timezone.now() - pytz.utc.localize(datetime.datetime(2010, 1, 1))).total_seconds())
-            ))[-8:]
-            self.ref = default_val
+            )+ rand)[-8:]
+            self.ref = default_val.upper()
+
         super(Booking, self).save(*args, **kwargs)
 
     def __unicode__(self):  # __unicode__ on Python 2

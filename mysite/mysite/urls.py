@@ -41,8 +41,9 @@ urlpatterns = patterns('',
 
     # paypal
     url(r'^paypal/', include('paypal.urls', namespace='paypal')),
-    #url(r'^paypal/create/$', paypal.paypal_create, name='paypal_create'),
-    #url(r'^paypal/execute/$', paypal.paypal_execute, name='paypal_execute'),
+
+    # testimonials
+    url(r'^testimonials/', include('testimonials.urls', namespace='testimonials')),
 
     # Login
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
