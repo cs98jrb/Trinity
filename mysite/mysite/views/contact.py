@@ -3,7 +3,10 @@ from django.utils import timezone
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
+from django.core.mail import EmailMultiAlternatives
+
+from django.conf import settings
 
 from events.models import Event
 from mysite.forms import ContactForm, CreateUserForm
@@ -37,6 +40,7 @@ def get_contact(request):
             sender = form.cleaned_data['email']
 
             recipients = ['james@pjshire.me.uk']
+            # recipients = ['web-gktVTO@mail-tester.com']
 
             form.save()
 
@@ -44,8 +48,16 @@ def get_contact(request):
             print message
             print sender
             print recipients
-            send_mail(subject, message, sender, recipients)
 
+
+            # send_mail(subject, message, sender, recipients)
+            msg = EmailMessage(
+                subject, message, settings.SERVER_EMAIL,
+                recipients, [],
+                headers={'Reply-To': sender}
+            )
+
+            msg.send()
             # redirect to a new URL:
             return HttpResponseRedirect(reverse('thank you'))
 

@@ -3,7 +3,7 @@
 
 <h2>Testimonials</h2>
     {% for testimonial in test_list %}
-        <p><a href="{% url 'testimonials:detail' testimonial.id %}">{{ testimonial }}</a></p>
+        <p><a href="{% url 'testimonials:detail' testimonial.id %}">{{ testimonial.title }} - {{ testimonial.left_by.first_name }}, {{ testimonial.town }}</a></p>
     {% endfor %}
     {% if test_list.has_previous %}
         <a href="?page={{ test_list.previous_page_number }}" class="button">previous</a>

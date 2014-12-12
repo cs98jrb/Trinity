@@ -7,7 +7,7 @@ from testimonials.models import Testimonial
 # Create your views here.
 def index(request):
     test_list = Testimonial.objects.all()
-    paginator = Paginator(test_list, 20)
+    paginator = Paginator(test_list, 15)
 
     page = request.GET.get('page')
     try:
@@ -26,5 +26,5 @@ def index(request):
 def detail(request, test_id):
     testimonial = get_object_or_404(Testimonial, pk=test_id)
     return render(request, 'testimonials/detail.html', {
-        'testimonial': testimonial,
+        'testimonial_detail': testimonial,
     })

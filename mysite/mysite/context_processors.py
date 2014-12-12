@@ -13,9 +13,14 @@ def event_list(request):
     }
 
 def test_list(request):
-    testimonial = Testimonial.objects.filter(
+    testimonial_list = Testimonial.objects.filter(
         hompage = True
-    ).order_by('?')[0]
+    )
+
+    if len(testimonial_list) > 0:
+        testimonial = testimonial_list.order_by('?')[0]
+    else:
+        testimonial = None
 
     return {
         'testimonial': testimonial

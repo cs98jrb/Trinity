@@ -1,6 +1,6 @@
 {% extends "mysite/base.html" %}
 {% block content %}
-<h2>{{ testimonial.title }}</h2>
-<p>{{ testimonial.body }}</p>
-    <p> - {{ testimonial.left_by }}, {{ testimonial.town }}</p>
+<h2>{{ testimonial_detail.title }}</h2>
+<p>{{ testimonial_detail.body }}</p>
+    <p> - {{ testimonial_detail.left_by.first_name }}, {{ testimonial_detail.town }}</p>
 {% endblock %}
