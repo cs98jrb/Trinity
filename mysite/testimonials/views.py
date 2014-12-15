@@ -23,6 +23,7 @@ def index(request):
         'test_list': test_list,
     })
 
+
 def detail(request, test_id):
     testimonial = get_object_or_404(Testimonial, pk=test_id)
     return render(request, 'testimonials/detail.html', {

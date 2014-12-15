@@ -25,7 +25,7 @@ urlpatterns = patterns('',
     url(r'^readings/', views.coming_soon, name='readings'),
     url(r'^books/', views.coming_soon, name='books'),
     url(r'^press/', views.coming_soon, name='press'),
-    url(r'^serenity_centre/', views.coming_soon, name='serenity_centre'),
+    url(r'^serenity_centre/', views.serenity, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),
 
     # the contact form.
@@ -48,5 +48,7 @@ urlpatterns = patterns('',
     # Login
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 
+    #Google
+    url(r'^googlec35559684fb6219b.html', views.google)
 
 )
