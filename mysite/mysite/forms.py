@@ -11,6 +11,7 @@ class ContactForm(forms.ModelForm):
     required_css_class = 'required'
 
     confirm_email = forms.EmailField(
+        max_length=254,
         label="Confirm email",
         required=True,
     )

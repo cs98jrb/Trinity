@@ -17,16 +17,18 @@
         {% if event.num_spaces < 10 %}
             <p>Only {{ event.num_spaces }} spaces left</p>
         {% endif %}
-        {% if user.is_authenticated %}
+
 <form action="{% url 'events:book' event.id %}" method="post">
     {% csrf_token %}
-    {{ form.quantity.errors }}
-    {{ form.quantity.label_tag }}
-    {{ form.quantity }} <input class="button" type="submit" value="Book" />
+    <table>
+    {{ form.as_table }}
+        <tr>
+            <td colspan="2" style="text-align: center;"><input class="button" type="submit" value="Book" /></td>
+        </tr>
+    </table>
 </form>
-        {% else %}
-    <p>Please <a href="{% url 'accounts:login' %}?next={{ request.path }}" >log in</a> to book your place.</p>
-        {% endif %}
+
+
     {% endif %}
 </div>
 

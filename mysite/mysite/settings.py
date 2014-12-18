@@ -123,7 +123,8 @@ PAYPAL_CLIENT_SECRET = 'ELL5tRAFy2c6_D3oNU4tSscVvOMlQdqC4koyqirnPFJJEHT5VW5llmI8
 PAYPAL_HOLD_BOOKING = 30
 
 # change user model
-AUTH_USER_MODEL = 'auth.User'
+# AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'accounts.AuthUser'
 LOGIN_REDIRECT_URL = '/'
 
 # vat registered

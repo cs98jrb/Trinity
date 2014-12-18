@@ -33,10 +33,10 @@ def detail(request, event_id):
         'event': event,
         'bookable': booking,
         'request': request,
-        'form': BookingForm(),
+        'form': BookingForm(request),
     })
 
-@login_required
+
 def book(request, event_id):
     event_list = Event.objects.filter(
         event_time__gte=timezone.now()
@@ -56,7 +56,7 @@ def book(request, event_id):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = BookingForm(request.POST)
+        form = BookingForm(request, request.POST)
         # check whether it's valid:
         if form.is_valid():
             from orders.models import Order
@@ -74,7 +74,7 @@ def book(request, event_id):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = BookingForm()
+        form = BookingForm(request)
 
     return render(request, 'events/detail.html', {
         'event_list': event_list,

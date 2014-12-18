@@ -1,12 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Testimonial(models.Model):
     created = models.DateField(auto_now_add=True)
     title = models.CharField(max_length=50)
     body = models.TextField()
-    left_by = models.ForeignKey(User)
+    left_by = models.ForeignKey(settings.AUTH_USER_MODEL)
     town = models.CharField(max_length=50)
     active = models.BooleanField(default=True)
     hompage = models.BooleanField(default=True)

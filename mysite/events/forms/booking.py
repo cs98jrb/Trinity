@@ -13,16 +13,32 @@ from orders.models import Order, OrderItem
 class BookingForm(forms.ModelForm):
     # set the css of required fields
     required_css_class = 'required'
+    email = forms.EmailField(max_length=254,
+        label="Contact email",
+        required=True,
+        help_text="This is required so we can contact you."
+    )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, request, *args, **kwargs):
         booking = super(BookingForm, self).__init__(*args, **kwargs)
 
         # add label
         self.fields['quantity'].label = "Number of people"
 
+        try:
+            if not request.user.is_anonymous():
+                self.fields['email'].initial = request.user.email
+            else:
+                self.fields['make_user'] = forms.BooleanField(
+                    initial=True,
+                    help_text="This will create an account for you."
+                )
+        except User.DoesNotExist:
+            pass
+
     class Meta:
         model = Booking
-        fields = ['quantity', ]
+        fields = ['email', 'quantity', ]
 
     def save(self, event, price, user, commit=True):
         from django.contrib.contenttypes.models import ContentType

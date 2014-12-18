@@ -2,11 +2,14 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('orders', '__first__'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
@@ -18,6 +21,8 @@ class Migration(migrations.Migration):
                 ('booked', models.DateField(auto_now_add=True, verbose_name=b'date booked')),
                 ('quantity', models.IntegerField()),
                 ('confirmed', models.BooleanField(default=False)),
+                ('payment_pending', models.BooleanField(default=False)),
+                ('booked_by', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
@@ -48,6 +53,7 @@ class Migration(migrations.Migration):
                 ('value', models.DecimalField(max_digits=5, decimal_places=2)),
                 ('online_book', models.BooleanField(default=False)),
                 ('event', models.ManyToManyField(to='events.Event', null=True, blank=True)),
+                ('vat', models.ForeignKey(to='orders.Vat')),
             ],
             options={
             },
@@ -66,5 +72,23 @@ class Migration(migrations.Migration):
             options={
             },
             bases=(models.Model,),
+        ),
+        migrations.AddField(
+            model_name='event',
+            name='venue',
+            field=models.ForeignKey(to='events.Venue'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='booking',
+            name='event',
+            field=models.ForeignKey(to='events.Event'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='booking',
+            name='price',
+            field=models.ForeignKey(to='events.Pricing'),
+            preserve_default=True,
         ),
     ]
