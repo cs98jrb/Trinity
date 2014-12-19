@@ -22,6 +22,8 @@ urlpatterns = patterns('',
     url(r'^order/', include('orders.urls', namespace="orders")),
 
     # Holding pages
+    url(r'^terms/', views.coming_soon, name='tandc'),
+    url(r'^privacy-policy/', views.coming_soon, name='privacy'),
     url(r'^readings/', views.coming_soon, name='readings'),
     url(r'^books/', views.coming_soon, name='books'),
     url(r'^press/', views.coming_soon, name='press'),
@@ -49,6 +51,9 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 
     #Google
-    url(r'^googlec35559684fb6219b.html', views.google)
+    url(r'^googlec35559684fb6219b.html', views.google),
+
+    #cookie
+    url(r'^cookies/', include('cookie_consent.urls')),
 
 )

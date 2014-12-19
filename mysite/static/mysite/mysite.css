@@ -65,10 +65,22 @@ body{
     position: absolute;
     margin: 0;
     bottom: 14px;
+    font-weight: bold;
+    color: #f3f3f3;
+    text-shadow: 1px 1px 3px #000;
+}
+
+#foot p.right{
     right: 15px;
-   font-weight: bold;
-   color: #f3f3f3;
-   text-shadow: 1px 1px 3px #000;
+}
+#foot p.left{
+    left: 15px;
+}
+
+#foot a {
+    text-decoration: none;
+    color: #f3f3f3;
+    text-shadow: 1px 1px 3px #000;
 }
 
 .inf_box{
@@ -160,4 +172,8 @@ ul.event_list {
 
 .event_button{
     display: inline-block;
+}
+
+.tandc{
+    font-size: x-small;
 }

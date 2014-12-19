@@ -13,7 +13,8 @@ from orders.models import Order, OrderItem
 class BookingForm(forms.ModelForm):
     # set the css of required fields
     required_css_class = 'required'
-    email = forms.EmailField(max_length=254,
+    email = forms.EmailField(
+        max_length=254,
         label="Contact email",
         required=True,
         help_text="This is required so we can contact you."
@@ -28,11 +29,7 @@ class BookingForm(forms.ModelForm):
         try:
             if not request.user.is_anonymous():
                 self.fields['email'].initial = request.user.email
-            else:
-                self.fields['make_user'] = forms.BooleanField(
-                    initial=True,
-                    help_text="This will create an account for you."
-                )
+
         except User.DoesNotExist:
             pass
 

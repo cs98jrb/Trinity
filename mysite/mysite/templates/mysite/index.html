@@ -1,13 +1,15 @@
 {% extends "mysite/base.html" %}
 {% load staticfiles %}
 {% block content %}
-<img class="text_wrap" src="{% static "mysite/images/trinity.png" %}" alt="Trinity Williams"/>
-<img src="{% static "mysite/images/welcome.png" %}" alt="Trinity Williams"/>
-<p>My name is Trinity Williams, and I am a spiritual-medium who has helped so many people find the light when they could see only the darkness in their lives.</p>
+<div itemscope itemtype="http://schema.org/Person">
+<img class="text_wrap" itemprop="image" src="{% static "mysite/images/trinity.png" %}" alt="Trinity Williams"/>
+<img src="{% static "mysite/images/welcome.png" %}" alt="Welcome"/>
+<p>My name is <span itemprop="name">Trinity Williams</span>, and I am a <span itemprop="jobTitle">spiritual-medium</span> who has helped so many people find the light when they could see only the darkness in their lives.</p>
 <p>Understanding that there is life after death and connecting the two worlds is my calling in life.</p>
 <ul>
     <li>Have you lost a loved one with whom you would like to contact?</li>
     <li>Do you feel lost and would you like to connect with someone close who has passed away?</li>
     <li>Do you believe in life after death?</li>
 </ul>
+</div>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.utils import timezone
 from events.models import Event
 from testimonials.models import Testimonial
 
+
 def event_list(request):
     event_list = Event.objects.filter(
         event_time__gte=timezone.now()
@@ -11,6 +12,7 @@ def event_list(request):
     return {
         'event_list': event_list,
     }
+
 
 def test_list(request):
     testimonial_list = Testimonial.objects.filter(
@@ -24,4 +26,10 @@ def test_list(request):
 
     return {
         'testimonial': testimonial
+    }
+
+
+def dnt_request(request):
+    return {
+        'tracking': not request.DNT
     }

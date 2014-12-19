@@ -4,9 +4,15 @@
 {% if event_list %}
     <ul>
     {% for event in event_list %}
-    <li><p>
-        <a href="{% url 'events:detail' event.id %}">{{ event.title }}</a><br>
-        {{ event.venue}} - {{ event.event_time|date:"D jS N"}}
+    <li><p itemscope itemtype="http://schema.org/Event">
+        <a itemprop="url" href="{% url 'events:detail' event.id %}"><span itemprop="name">{{ event.title }}</span></a><br>
+        <span itemprop="location" itemscope itemtype="http://schema.org/Place">
+            <span itemprop="name">{{ event.venue.name}}</span>,
+            <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
+                <span itemprop="addressLocality">{{ event.venue.town}}</span>
+            </span>
+        </span>
+        - <meta itemprop="startDate" content="{{ event.event_time|date:"c"}}">{{ event.event_time|date:"D jS N"}}
     </p></li>
     {% endfor %}
     </ul>
