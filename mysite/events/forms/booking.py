@@ -20,6 +20,11 @@ class BookingForm(forms.ModelForm):
         help_text="This is required so we can contact you."
     )
 
+    tandc = forms.BooleanField(
+        label="Accept terms and conditions",
+        required=True,
+    )
+
     def __init__(self, request, *args, **kwargs):
         booking = super(BookingForm, self).__init__(*args, **kwargs)
 
