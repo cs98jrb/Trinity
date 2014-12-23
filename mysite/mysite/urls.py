@@ -26,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^privacy-policy/', views.coming_soon, name='privacy'),
     url(r'^readings/', views.coming_soon, name='readings'),
     url(r'^books/', views.coming_soon, name='books'),
-    url(r'^press/', views.coming_soon, name='press'),
+    url(r'^press/', views.press, name='press'),
     url(r'^serenity_centre/', views.serenity, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),
 

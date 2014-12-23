@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 {% load staticfiles %}
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "jquery_ui/jquery-ui.min.css" %}" />
     <link rel="stylesheet" href="{% static "mysite/mysite.css" %}" />
     <script src="{% static "jquery_ui/jquery-1.11.1.min.js" %}"></script>
@@ -55,7 +56,7 @@
 {% endif %}
     <div id="page_wrap">
     <div id="top">
-        <img src="{% static "mysite/images/trinity_header.jpg" %}" alt="Trinity Williams" usemap="#social_media"/>
+        <img src="{% static "mysite/images/trinity_header.jpg" %}" alt="Trinity Williams" usemap="#social_media"  hidefocus="true" />
           <map name="social_media">
             <area shape="rect" coords="894,5,930,41" alt="Facebook" href="https://www.facebook.com/pages/Trinity-Rose-Williams-Spiritual-Medium-Counsellor-Dipcouns/380095498796510?fref=ts">
             <area shape="rect" coords="935,5,971,41" alt="Twitter" href="http:\\twitter.com">
@@ -72,7 +73,7 @@
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'press' %}">Press</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'serenity_centre' %}">Serenity Centre</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'blog' %}">Blog</a></li>
-            <li class="menu"><a style="width: 100%" class="menu"  href="{% url 'contact' %}">Contact</a></li>
+            <li class="menu"><a style="width: 100%" class="menu"  href="{% url 'contact' %}">Contact Us</a></li>
             {% if user.is_authenticated %}
                 <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'orders:orders' %}">My Orders</a></li>
             {% else %}
@@ -124,7 +125,7 @@
                 <ul class="event_list">
                 {% for event in event_list %}
                 <li itemscope itemtype="http://schema.org/Event"><div class="event_text">
-                    <meta itemprop="name" content="{{ event.title }}">{{ event.title|truncatechars:48 }}
+                    <h3><meta itemprop="name" content="{{ event.title }}">{{ event.title|truncatechars:40 }}</h3>
                     <span itemprop="startDate" content="{{ event.event_time|date:"c"}}" >{{ event.event_time|date:"d/m/y"}}</span>
                     <span itemprop="location" itemscope itemtype="http://schema.org/Place">
                         <span itemprop="name">{{ event.venue.name }}</span>,
@@ -132,7 +133,8 @@
                             <span itemprop="addressLocality">{{ event.venue.town }}</span>
                         </span>
                     </span>
-                </div><div class="event_button"><a itemprop="url" class="button" href="{% url 'events:detail' event.id %}">Details</a></div></li>
+                </div><div class="event_button"><a itemprop="url" class="button" href="{% url 'events:detail' event.id %}">Details</a></div>
+                </li>
                 <hr />
                 {% endfor %}
                 </ul>

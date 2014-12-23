@@ -1,8 +1,13 @@
 body{
     font-size: small;
-    font-family: Trebuchet MS,Helvetica,Arial,sans-serif;
+    font-family: 'Open Sans', Helvetica,Arial,sans-serif;
     color: #333333;
 }
+
+h1, h2, h3{
+    color: #cc3399;
+}
+
 #page_wrap{
     width: 1256px;
     margin: auto;
@@ -153,13 +158,13 @@ ul.errorlist {
 }
 
 /*Event list*/
-
 ul.event_list {
     list-style-type: none;
     padding: inherit;
 }
 .event_list li {
     line-height: 1.5em;
+    color: #333333;
 }
 
 .event_text {
@@ -174,6 +179,18 @@ ul.event_list {
     display: inline-block;
 }
 
+.event_text h3{
+    margin: 0;
+}
+
 .tandc{
     font-size: x-small;
+}
+
+img.map, map area{
+    outline: none;
+}
+
+img {
+    border: 0;
 }

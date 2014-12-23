@@ -114,7 +114,10 @@ def send_email(booking):
 
     print(message)
 
+
 import random
+
+
 class Booking(models.Model):
 
     ref = models.CharField(max_length=8, default='x')

@@ -47,6 +47,8 @@ class BookingForm(forms.ModelForm):
         #
         booking = super(BookingForm, self).save(commit=False)
 
+
+
         booking.booked_by = user
         booking.event = event
         booking.price = price
