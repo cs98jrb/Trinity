@@ -89,6 +89,7 @@ def book(request, event_id):
                 try:
                     form.save(event=event, price=pricing, user=user)
                     open_order = Order.objects.open_order(user)
+                    request.session['order_id'] = open_order.id
 
                     # redirect to a new URL:
                     return HttpResponseRedirect(reverse('orders:detail', kwargs={'order_id': open_order[0].id}))

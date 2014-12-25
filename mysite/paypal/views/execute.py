@@ -62,6 +62,7 @@ def execute(request):
         order.save()
 
         del request.session['payment_id']
+        del request.session['order_id']
 
         html = "<p>Thank you for your payment. A confirmation email has been sent containing your order details</p>"
         return render(request, 'paypal/success.html', {
