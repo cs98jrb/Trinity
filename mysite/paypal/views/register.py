@@ -13,7 +13,7 @@ from paypal.models import Payment
 from events.models import Event
 
 
-def register(request):
+def register(request, order_id=None):
     """
     MyApp > Paypal > Create a Payment
     """
@@ -24,8 +24,13 @@ def register(request):
 
     error = ''
 
-    # Check for open order
-    if request.user.is_authenticated():
+    # check the order id
+    order = None
+    if order_id:
+        order = Order.objects.get(id=order_id)
+        if not order.open:
+            error += '<p>Not an open order</p>'
+    elif request.user.is_authenticated():# Check for open order
         open_order_list = Order.objects.open_order(user=request.user)
         if not open_order_list:
             error += '<p>No unpaid order</p>'
@@ -39,8 +44,9 @@ def register(request):
         })
 
     # Close the order while taking payment
-    order = open_order_list[0]
-    order.waiting_payment = True
+    if not order:
+        order = open_order_list[0]
+        order.waiting_payment = True
     print (order)
 
     try:

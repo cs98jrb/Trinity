@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 # from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
@@ -71,9 +71,9 @@ def book(request, event_id):
                 user = request.user
 
             else:
-                user = AuthUser.objects.get(username=form.cleaned_data['email'])
-
-                if not user:
+                try:
+                    user = AuthUser.objects.get(username=form.cleaned_data['email'])
+                except ObjectDoesNotExist:
                     try:
                         user = AuthUser.objects.create_user(
                             form.cleaned_data['email'],

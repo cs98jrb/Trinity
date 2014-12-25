@@ -52,7 +52,7 @@
     </table>
     {% if order.open %}
     <p>
-    <a href="{% url 'paypal:register' %}"><img src="https://www.paypalobjects.com/en_US/i/btn/x-click-but6.gif" style="margin-right:7px; vertical-align: middle"></a>
+    <a href="{% url 'paypal:register' order.id %}"><img src="https://www.paypalobjects.com/en_US/i/btn/x-click-but6.gif" style="margin-right:7px; vertical-align: middle"></a>
     OR
     <a href="{% url 'orders:cancel' order.id %}" class="button">Cancel Order</a>
     </p>
