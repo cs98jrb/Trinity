@@ -22,8 +22,15 @@ from django.utils.encoding import python_2_unicode_compatible
 class EmailInf(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254)
+    subject = models.CharField(
+        max_length=128,
+        default="Website 'Contact Us'"
+    )
     message = models.TextField()
-    sent_date = models.DateTimeField('date published',auto_now_add=True)
+    sent_date = models.DateTimeField(
+        'date published',
+        auto_now_add=True
+    )
     
     class Meta:
         ordering = ['sent_date']

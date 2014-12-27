@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     # Holding pages
     url(r'^terms/', views.coming_soon, name='tandc'),
     url(r'^privacy-policy/', views.coming_soon, name='privacy'),
-    url(r'^readings/', views.coming_soon, name='readings'),
+    url(r'^readings/', views.reading, name='readings'),
     url(r'^books/', views.coming_soon, name='books'),
     url(r'^press/', views.press, name='press'),
     url(r'^serenity_centre/', views.serenity, name='serenity_centre'),

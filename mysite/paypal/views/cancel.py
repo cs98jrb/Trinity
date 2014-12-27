@@ -7,10 +7,6 @@ from paypal.models import Payment as PayPalPayment
 
 
 def cancel(request):
-    event_list = Event.objects.filter(
-        event_time__gte=timezone.now()
-    )[:5]
-
     payment_id = False
 
     if 'payment_id' in request.session:
@@ -30,6 +26,5 @@ def cancel(request):
 
 
     return render(request, 'paypal/errors.html', {
-        'event_list': event_list,
         'error': html,
     })

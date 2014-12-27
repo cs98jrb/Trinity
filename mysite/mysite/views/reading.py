@@ -9,35 +9,28 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 
 from events.models import Event
-from mysite.forms import ContactForm, CreateUserForm
+from mysite.forms import ReadingForm
 from mysite.models import EmailInf
 
 
-def contact(request):
-    event_list = Event.objects.filter(
-        event_time__gte=timezone.now()
-    )[:5]
-
-    return render(request, 'mysite/contact.html', {
-        'event_list': event_list,
-    })
-
-
-def get_contact(request):
+def reading(request):
 
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        subject = "Trinity Website 'Contact Us' xxx"
+        subject = "Trinity Website 'Request a reading'"
 
         email_inf = EmailInf(subject=subject)
-        form = ContactForm(request, request.POST, instance=email_inf)
+        form = ReadingForm(request, request.POST, instance=email_inf)
 
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
 
-            message = "FROM: "+form.cleaned_data['name']+"\n"+form.cleaned_data['message']
+            message = "FROM: "+form.cleaned_data['name'] + "\n" +\
+                      "Date: "+form.cleaned_data['requested_date'].strftime("%d/%m/%Y") + "\n" +\
+                      "Time: "+form.cleaned_data['requested_date'].strftime("%H:%M") + "\n" +\
+                      form.cleaned_data['message']
             sender = form.cleaned_data['email']
 
             recipients = ['james@pjshire.me.uk']
@@ -64,14 +57,8 @@ def get_contact(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = ContactForm(request)
+        form = ReadingForm(request)
 
-    return render(request, 'mysite/contact.html', {
+    return render(request, 'mysite/request.html', {
         'form': form,
     })
-
-
-def contact_thanks(request):
-    return render(request, 'mysite/contact_thanks.html')
-
-

@@ -103,8 +103,8 @@ def register(request, order_id=None):
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": request.build_absolute_uri(),
-            "cancel_url": request.build_absolute_uri(reverse('paypal:cancel')) },
+            "return_url": request.build_absolute_uri(reverse('paypal:execute')),
+            "cancel_url": request.build_absolute_uri(reverse('paypal:cancel'))},
         "transactions": [{
             "item_list": {
                 "items": items

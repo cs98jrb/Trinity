@@ -9,7 +9,7 @@
     <script src="{% static "jquery_ui/jquery-ui.min.js" %}"></script>
     
     <title>{% block title %}Trinity Williams{% endblock %}</title>
-    <script>
+    <script type="text/javascript">
         $( document ).ready(function() {
 
             //$.cookieBar({
@@ -38,6 +38,7 @@
             );
         });
     </script>
+{% block extra_head %}{% endblock %}
 </head>
 
 <body>
