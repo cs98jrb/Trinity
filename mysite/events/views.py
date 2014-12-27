@@ -42,10 +42,6 @@ def detail(request, event_id):
 
 
 def book(request, event_id):
-    event_list = Event.objects.filter(
-        event_time__gte=timezone.now()
-    )[:5]
-
     event = get_object_or_404(Event, pk=event_id)
     # pricing_set = event.pricing_set
     online_pricing = event.pricing_set.all().filter(online_book=True)
@@ -89,10 +85,12 @@ def book(request, event_id):
                 try:
                     form.save(event=event, price=pricing, user=user)
                     open_order = Order.objects.open_order(user)
-                    request.session['order_id'] = open_order.id
+                    request.session['order_id'] = open_order[0].id
 
                     # redirect to a new URL:
-                    return HttpResponseRedirect(reverse('orders:detail', kwargs={'order_id': open_order[0].id}))
+                    return HttpResponseRedirect(
+                        reverse('orders:detail', kwargs={'order_id': open_order[0].id})
+                    )
                 except ValidationError as e:
                     form.add_error('quantity', e)
 
@@ -101,7 +99,6 @@ def book(request, event_id):
         form = BookingForm(request)
 
     return render(request, 'events/detail.html', {
-        'event_list': event_list,
         'event': event,
         'bookable': booking,
         'request': request,

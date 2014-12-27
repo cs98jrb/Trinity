@@ -58,6 +58,12 @@ class Order(models.Model):
     def vat_num(self):
         return settings.VAT_REGISTERED
 
+    def delete(self, *args, **kwargs):
+        if self.open:
+            super(Order, self).delete(*args, **kwargs)
+        else:
+            return
+
     def save(self, *args, **kwargs):
         if self.open:
             confirmed = False

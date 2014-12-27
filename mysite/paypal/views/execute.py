@@ -13,14 +13,11 @@ from orders.models import Order, Payment, PaymentType
 from paypal.models import Payment as PayPalPayment
 from events.models import Event
 
+
 def execute(request):
     """
     MyApp > Paypal > Execute a Payment
     """
-
-    event_list = Event.objects.filter(
-        event_time__gte=timezone.now()
-    )[:5]
 
     if 'payment_id' in request.session:
         payment_id = request.session['payment_id']
@@ -28,7 +25,6 @@ def execute(request):
     else:
         error = '<p>We are sorry but something went wrong.</p>'
         return render(request, 'paypal/errors.html', {
-            'event_list': event_list,
             'error': error,
         })
 
@@ -45,6 +41,7 @@ def execute(request):
 
     # get related order
     order = paypal_payment.related_order
+
     if payment.execute({"payer_id": payer_id}):
         # the payment has been accepted
 
@@ -61,12 +58,16 @@ def execute(request):
         order.waiting_payment = False
         order.save()
 
-        del request.session['payment_id']
-        del request.session['order_id']
+        paypal_payment.successful = timezone.now()
+        paypal_payment.save()
+
+        if request.session['payment_id']:
+            del request.session['payment_id']
+        if request.session['order_id']:
+            del request.session['order_id']
 
         html = "<p>Thank you for your payment. A confirmation email has been sent containing your order details</p>"
         return render(request, 'paypal/success.html', {
-            'event_list': event_list,
             'html': html,
         })
     else:
@@ -80,6 +81,5 @@ def execute(request):
         error = '<p>We are sorry but something went wrong.</p>' \
                 '<p>'+str(payment.error)+'</p>'
         return render(request, 'paypal/errors.html', {
-            'event_list': event_list,
             'error': error,
         })
