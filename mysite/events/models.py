@@ -17,6 +17,18 @@ class Venue(models.Model):
     town = models.CharField(max_length=50)
     postcode = models.CharField(max_length=8, blank=True)
     active = models.BooleanField(default=True)
+    lat = models.DecimalField(
+        decimal_places=7,
+        max_digits=10,
+        blank=True,
+        null=True
+    )
+    lng = models.DecimalField(
+        decimal_places=7,
+        max_digits=10,
+        blank=True,
+        null=True
+    )
 
     def __unicode__(self):  # __unicode__ on Python 2
         return self.name + ", " + self.town

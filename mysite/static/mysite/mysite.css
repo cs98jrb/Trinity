@@ -8,6 +8,11 @@ h1, h2, h3{
     color: #cc3399;
 }
 
+p.highlight{
+    color: #cc3399;
+    font-weight: bold;
+}
+
 #page_wrap{
     width: 1256px;
     margin: auto;

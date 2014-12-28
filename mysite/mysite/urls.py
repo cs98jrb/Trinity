@@ -14,7 +14,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', views.IndexView.as_view(), name='home page'),
-    
+    url(r'^about/', views.about, name='about'),
+
     # Event system
     url(r'^events/', include('events.urls', namespace="events")),
 
@@ -25,7 +26,7 @@ urlpatterns = patterns('',
     url(r'^terms/', views.coming_soon, name='tandc'),
     url(r'^privacy-policy/', views.coming_soon, name='privacy'),
     url(r'^readings/', views.reading, name='readings'),
-    url(r'^books/', views.coming_soon, name='books'),
+    url(r'^books/', views.book, name='books'),
     url(r'^press/', views.press, name='press'),
     url(r'^serenity_centre/', views.serenity, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),

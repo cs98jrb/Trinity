@@ -5,3 +5,5 @@ from contact import get_contact, contact, contact_thanks
 from serenity import serenity
 from press import press
 from reading import reading
+from about import about
+from book import book

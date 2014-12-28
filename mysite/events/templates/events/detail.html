@@ -2,19 +2,53 @@
 {% block title %}
     {{ event.title }}
 {% endblock %}
+{% block extra_head %}
+    {% if event.venue.lat %}
+    <style>
+      #map-canvas {
+        width: 90%;
+        height: 400px;
+        margin: auto;
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+      function initialize() {
+        var venue = new google.maps.LatLng({{ event.venue.lat }}, {{ event.venue.lng }})
+        var mapCanvas = document.getElementById('map-canvas');
+        var mapOptions = {
+          center: venue,
+          zoom: 17,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+        var marker = new google.maps.Marker({
+          position: venue,
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    {% endif %}
+{% endblock %}
 {% block content %}
 <div itemscope itemtype="http://schema.org/Event">
 <h2 itemprop="name">{{ event.title }}</h2>
-    <h3><span itemprop="location" itemscope itemtype="http://schema.org/Place">
+    <h2>{{ event.event_time|date:"l jS F Y | fA" }}</h2> <meta itemprop="startDate" content="{{ event.event_time|date:"c"}}">
+    <h4><span itemprop="location" itemscope itemtype="http://schema.org/Place">
             <span itemprop="name">{{ event.venue.name}}</span>,
             <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
                 <span itemprop="addressLocality">{{ event.venue.town}}</span>
+                <span itemprop="postalCode">{{ event.venue.postcode}}</span>{% if event.venue.lat %} <a href="#map-canvas">map</a>{% endif %}
             </span>
-        </span> on {{ event.event_time }}</h3><meta itemprop="startDate" content="{{ event.event_time|date:"c"}}">
+        </span></h4>
 <div>
     <p>
         {{ event.description|safe }}
     </p>
+
     <ul>
     {% if event.pricing_set %}
         {% for price in event.pricing_set.all %}
@@ -40,7 +74,7 @@
     {{ form.as_table }}
         <tr>
             <td colspan="2" style="text-align: center;">
-                <p class="tandc">By booking you are agreeing to our <a href="{% url 'home page' %}">terms and conditions.</a> An account will be created to link your booking to the payment.</p>
+                <p class="tandc">By booking you are agreeing to our <a href="{% url 'tandc' %}">terms and conditions.</a> An account will be created to link your booking to the payment.</p>
                 <p><input class="button" type="submit" value="Book" /></p>
             </td>
         </tr>
@@ -49,6 +83,7 @@
 
 
     {% endif %}
+<div id="map-canvas"></div>
 </div>
 </div>
 {% endblock %}

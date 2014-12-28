@@ -13,13 +13,21 @@
     </script>
 {% endblock %}
 {% block content %}
-    <h2>Book a reading</h2>
+    <h2>One to One Readings</h2>
+    <p>One to one readings are available to book for yourself or as a gift for someone else.</p>
+    <h3>Telephone Readings:-</h3>
+    <p>Telephone readings are available. Trinity does not need to be with you in person to communicate with your loved ones and deliver their messages. Readings cost £25 per person. To book a date please <a href="#booking">click here</a>.The team will contact you to confirm a date and send you a link for payment.</p>
+    <h3>Group bookings for One to One Readings:-</h3>
+    <p>Trinity will visit in person for group bookings of 5 or more. Readings cost £30 per person plus a travel cost. To book a date please <a href="#booking">click here</a>. The team will contact you to confirm cost, a date and send you a link for payment.</p>
+    <h3>Visit Trinity for a One to One Reading:-</h3>
+    <p>You can visit Trinity in person for a one to one reading. Readings cost £25 per person. To book a date please <a href="#booking">click here</a>. The team will contact you to confirm a date and send you a link for payment.</p>
+    <h2 id="booking">Booking Form</h2>
 <form action="{% url 'readings' %}" method="post" class="contact_form">
     {% csrf_token %}
     <table>
     {{ form.as_table }}
         <tr>
-            <td colspan="2"><input class="button" type="submit" value="Submit" /></td>
+            <td colspan="2"><input style="display: block;margin: auto" class="button" type="submit" value="Request a time" /></td>
         </tr>
     </table>
 

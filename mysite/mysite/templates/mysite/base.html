@@ -67,7 +67,8 @@
     
     <div id="menu" class="menu">
         <ul id="menu_options" class="menu">
-            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'home page' %}">About Trinity</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'home page' %}">Home</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'about' %}">About Trinity</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'events:events' %}">Event Dates</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'readings' %}">Book a Reading</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'books' %}">Books</a></li>
@@ -75,11 +76,13 @@
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'serenity_centre' %}">Serenity Centre</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'blog' %}">Blog</a></li>
             <li class="menu"><a style="width: 100%" class="menu"  href="{% url 'contact' %}">Contact Us</a></li>
+            {% comment %}
             {% if user.is_authenticated %}
                 <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'orders:orders' %}">My Orders</a></li>
             {% else %}
                 <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'accounts:login' %}">login</a></li>
             {% endif %}
+            {% endcomment %}
         </ul>
     </div>
         <div class="error">
