@@ -25,7 +25,7 @@
         var marker = new google.maps.Marker({
           position: venue,
           map: map,
-          title: 'Hello World!'
+          title: '{{ event.venue.name}}'
         });
       }
       google.maps.event.addDomListener(window, 'load', initialize);
