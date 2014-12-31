@@ -23,8 +23,8 @@ urlpatterns = patterns('',
     url(r'^order/', include('orders.urls', namespace="orders")),
 
     # Holding pages
-    url(r'^terms/', views.coming_soon, name='tandc'),
-    url(r'^privacy-policy/', views.coming_soon, name='privacy'),
+    url(r'^terms/', views.tandc, name='tandc'),
+    url(r'^privacy-policy/', views.privacy_policy, name='privacy'),
     url(r'^readings/', views.reading, name='readings'),
     url(r'^books/', views.book, name='books'),
     url(r'^press/', views.press, name='press'),
