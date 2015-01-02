@@ -40,7 +40,7 @@ def get_contact(request):
             message = "FROM: "+form.cleaned_data['name']+"\n"+form.cleaned_data['message']
             sender = form.cleaned_data['email']
 
-            recipients = ['james@pjshire.me.uk']
+            recipients = ['Trinityrosewilliams@outlook.com']
             # recipients = ['web-gktVTO@mail-tester.com']
 
             form.save()
@@ -55,6 +55,16 @@ def get_contact(request):
             msg = EmailMessage(
                 subject, message, settings.SERVER_EMAIL,
                 recipients, [],
+                headers={'Reply-To': sender}
+            )
+
+            msg.send()
+
+            msg = None
+            # send_mail(subject, message, sender, recipients)
+            msg = EmailMessage(
+                subject, message, settings.SERVER_EMAIL,
+                ['james@pjshire.me.uk'], [],
                 headers={'Reply-To': sender}
             )
 
