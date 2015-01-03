@@ -9,7 +9,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
 
 from events.models import Event
-from mysite.forms import ReadingForm
+from mysite.forms import ReadingForm, ReadingPayment
 from mysite.models import EmailInf
 
 
@@ -27,7 +27,7 @@ def reading(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
 
-            message = "FROM: "+form.cleaned_data['name'] + "\n" +\
+            message = "FROM: "+form.cleaned_data['name']+" ("+form.cleaned_data['email']+")\n" + \
                       "Date: "+form.cleaned_data['requested_date'].strftime("%d/%m/%Y") + "\n" +\
                       "Time: "+form.cleaned_data['requested_date'].strftime("%H:%M") + "\n" +\
                       form.cleaned_data['message']
@@ -62,5 +62,29 @@ def reading(request):
         form = ReadingForm(request)
 
     return render(request, 'mysite/request.html', {
+        'form': form,
+    })
+
+
+def reading_payment(request):
+
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = ReadingPayment(request, request.POST)
+
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('thank you'))
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = ReadingPayment(request)
+
+    return render(request, 'mysite/reading_payments.html', {
         'form': form,
     })

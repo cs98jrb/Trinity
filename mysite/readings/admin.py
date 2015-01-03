@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from readings.models import Pricing, Booking
+
+admin.site.register(Pricing)
+admin.site.register(Booking)

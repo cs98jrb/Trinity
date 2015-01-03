@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'mysite',
     'paypal',
     'testimonials',
+    'readings',
 )
 
 MIDDLEWARE_CLASSES = (

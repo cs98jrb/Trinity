@@ -37,7 +37,8 @@ def get_contact(request):
         if form.is_valid():
             # process the data in form.cleaned_data as required
 
-            message = "FROM: "+form.cleaned_data['name']+"\n"+form.cleaned_data['message']
+            message = "FROM: "+form.cleaned_data['name']+" ("+form.cleaned_data['email']+")\n" + \
+                      form.cleaned_data['message']
             sender = form.cleaned_data['email']
 
             recipients = ['Trinityrosewilliams@outlook.com']

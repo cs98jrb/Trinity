@@ -138,3 +138,14 @@ class CreateUserForm(forms.ModelForm):
             raise ValidationError(u'Username "%s" is already in use.' % self.cleaned_data["username"])
 
         return user
+
+
+class ReadingPayment(forms.Form):
+    types = (
+        ('tel', 'Telephone Reading'),
+        ('group', 'Group Booking'),
+        ('visit', 'Visit Trinity'),
+    )
+    reading_type = forms.ChoiceField(choices=types, label='Type of reading')
+    number_booked = forms.IntegerField(max_value=25, min_value=1, label='Number of people')
+    email = forms.EmailField()

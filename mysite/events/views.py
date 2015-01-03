@@ -1,3 +1,5 @@
+import string
+import random
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -70,11 +72,17 @@ def book(request, event_id):
                 try:
                     user = AuthUser.objects.get(username=form.cleaned_data['email'])
                 except ObjectDoesNotExist:
+                    pass_chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKMNOPQRSTUVWXYZ0123456789'
+                    tmp_pass = ''.join(
+                        random.SystemRandom().choice(
+                            pass_chars
+                        ) for _ in range(8)
+                    )
                     try:
                         user = AuthUser.objects.create_user(
                             form.cleaned_data['email'],
                             form.cleaned_data['email'],
-                            '1234fff'
+                            tmp_pass
                         )
                         user.save()
 
