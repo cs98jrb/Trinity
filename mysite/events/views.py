@@ -72,7 +72,7 @@ def book(request, event_id):
                 try:
                     user = AuthUser.objects.get(username=form.cleaned_data['email'])
                 except ObjectDoesNotExist:
-                    pass_chars = 'abcdefghijkmnopqrstuvwxyzABCDEFGHJKMNOPQRSTUVWXYZ0123456789'
+                    pass_chars = 'abcdefghijkmnopqrstuvwxyz%ABCDEFGHJKMNOPQRSTUVWXYZ*0123456789^'
                     tmp_pass = ''.join(
                         random.SystemRandom().choice(
                             pass_chars

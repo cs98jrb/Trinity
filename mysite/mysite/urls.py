@@ -57,4 +57,6 @@ urlpatterns = patterns('',
     #cookie
     url(r'^cookies/', include('cookie_consent.urls')),
 
+    #Flat pages
+    (r'^pages/', include('django.contrib.flatpages.urls')),
 )

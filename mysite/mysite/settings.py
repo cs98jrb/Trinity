@@ -47,6 +47,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "django.contrib.sites",
+    "django.contrib.flatpages",
     'cookie_consent',
     'events',
     'paypalrestsdk',
@@ -132,6 +134,9 @@ LOGIN_REDIRECT_URL = '/'
 # vat registered
 # False or the vat registration number
 VAT_REGISTERED = False
+
+# Settings for django.contrib.sites.
+SITE_ID = 1
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
