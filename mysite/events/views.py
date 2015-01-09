@@ -20,7 +20,7 @@ def index(request):
     Event.capacity = 1
     event_list = Event.objects.filter(
         event_time__gte=timezone.now()
-    )[:5]
+    )
 
     return render(request, 'events/index.html', {
         'event_list': event_list,

@@ -1,0 +1,10 @@
+{% extends "cms/base.html" %}
+{% block content %}
+<h2>Event list</h2>
+{% if event_list %}
+    <p>This is the admin part of the site.</p>
+{% else %}
+    <p>There are no scheduled events.</p>
+{% endif %}
+
+{% endblock %}

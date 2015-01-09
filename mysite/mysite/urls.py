@@ -9,11 +9,12 @@ from mysite import paypal
 
 admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('django.contrib.flatpages.views',
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-    url(r'^$', views.IndexView.as_view(), name='home page'),
+    # url(r'^$', views.IndexView.as_view(), name='home page'),
+    url(r'^$', 'flatpage', {'url': 'home/'}, name='home page'),
     url(r'^about/', views.about, name='about'),
 
     # Event system
@@ -40,7 +41,9 @@ urlpatterns = patterns('',
 
     # actual site
     #url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^sys_admin/', include(admin.site.urls)),
+
+    url(r'^admin/', include('cms.urls', namespace='cms')),
 
     # paypal
     url(r'^paypal/', include('paypal.urls', namespace='paypal')),

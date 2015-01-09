@@ -4,7 +4,7 @@
 {% load staticfiles %}
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "jquery_ui/jquery-ui.min.css" %}" />
-    <link rel="stylesheet" href="{% static "mysite/mysite.css" %}" />
+    <link rel="stylesheet" href="{% static "cms/mysite.css" %}" />
     <script src="{% static "jquery_ui/jquery-1.11.1.min.js" %}"></script>
     <script src="{% static "jquery_ui/jquery-ui.min.js" %}"></script>
     
@@ -42,49 +42,19 @@
 </head>
 
 <body>
-{% load cookie_consent_tags %}
-{% if request|cookie_group_accepted:"track" %}
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-57676281-1', 'auto');
-      ga('send', 'pageview');
-
-    </script>
-{% endif %}
     <div id="page_wrap">
-    <div id="top">
-        <img src="{% static "mysite/images/trinity_header.jpg" %}" alt="Trinity Williams" usemap="#social_media"  hidefocus="true" />
-          <map name="social_media">
-            <area shape="rect" coords="894,5,930,41" alt="Facebook" href="https://www.facebook.com/pages/Trinity-Rose-Williams-Spiritual-Medium-Counsellor-Dipcouns/380095498796510?fref=ts">
-              {% comment %}
-            <area shape="rect" coords="935,5,971,41" alt="Twitter" href="http:\\twitter.com">
-            <area shape="rect" coords="976,5,1012,41" alt="Linkedin" href="http:\\linkedin.com">
-              {% endcomment %}
-          </map>
+    <div>
+        <h1>Site Admin</h1>
     </div>
-    
+{% if not user.is_authenticated %}
+    <p>Please <a href="{% url 'accounts:login' %}?next=/admin/">log in</a>.</p>
+{% else %}
     <div id="menu" class="menu">
         <ul id="menu_options" class="menu">
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'home page' %}">Home</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'about' %}">About Trinity</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'events:events' %}">Event Dates</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'readings:book' %}">Book a Reading</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'books' %}">Books</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'press' %}">Press</a></li>
-            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'serenity_centre' %}">Serenity Centre</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'cms:events' %}">Events</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'blog' %}">Blog</a></li>
-            <li class="menu"><a style="width: 100%" class="menu"  href="{% url 'contact' %}">Contact Us</a></li>
-            {% comment %}
-            {% if user.is_authenticated %}
-                <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'orders:orders' %}">My Orders</a></li>
-            {% else %}
-                <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'accounts:login' %}">login</a></li>
-            {% endif %}
-            {% endcomment %}
+            <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'accounts:logout' %}">log out</a></li>
         </ul>
     </div>
         <div class="error">
@@ -93,82 +63,12 @@
         </div>
     <div id="content">
         {% block content %}
-        <img class="text_wrap" src="{% static "mysite/images/trinity.png" %}" alt="Trinity Williams"/>
-        <img src="{% static "mysite/images/welcome.png" %}" alt="Trinity Williams"/>
-        <p>My name is Trinity Williams, and I am a spiritual-medium who has helped so many people find the light when they could see only the darkness in their lives.</p>
-        <p>Understanding that there is life after death and connecting the two worlds is my calling in life.</p>
-        <ul>
-            <li>Have you lost a loved one with whom you would like to contact?</li>
-            <li>Do you feel lost and would you like to connect with someone close who has passed away?</li>
-            <li>Do you </li>
-        </ul>
-        <div class="inf_box ui-tabs ui-widget ui-widget-content ui-corner-all">
-            <h3 class="ui-state-active ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-tabs">Book a reading with Trinity</h3>
-            <div class="text_wrap">
-                <div id="datepicker"></div>
-                <input type="hidden" id="alternate" />
-            </div>
-            <div>
-                <p>
-                    "I saw Beverley ..."
-                </p>
-                <div class="align_left">
-                    <a class="button">Book Now</a>
-                </div>
-            </div>
-            <div style="clear: both"></div>
-        </div>
+            <p>This is the base admin page</p>
         {% endblock %}
     </div>
-    
-    <div id="sidebar">
-        {% block sidebar %}
- 
-        {% if event_list %}
-        <div class="inf_box ui-tabs ui-widget ui-widget-content ui-corner-all">
-            <h3 class="ui-state-active ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-tabs">Events</h3>
-            <div style="margin-bottom: 5px">
-                <ul class="event_list">
-                {% for event in event_list %}
-                <li itemscope itemtype="http://schema.org/Event"><div class="event_text">
-                    <h3><meta itemprop="name" content="{{ event.title }}">{{ event.title|truncatechars:40 }}</h3>
-                    <span itemprop="startDate" content="{{ event.event_time|date:"c"}}" >{{ event.event_time|date:"d/m/y"}}</span>
-                    <span itemprop="location" itemscope itemtype="http://schema.org/Place">
-                        <span itemprop="name">{{ event.venue.name }}</span>,
-                        <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                            <span itemprop="addressLocality">{{ event.venue.town }}</span>
-                        </span>
-                    </span>
-                </div><div class="event_button"><a itemprop="url" class="button" href="{% url 'events:detail' event.id %}">Details</a></div>
-                </li>
-                <hr />
-                {% endfor %}
-                </ul>
-                <div class="align_left">
-                    <a class="button" href="{% url 'events:events' %}">View all dates</a>
-                </div>
-            </div>
-        </div>
-            <p>{{ say_hello }}</p>
-        {% endif %}
-        <div class="inf_box ui-tabs ui-widget ui-widget-content ui-corner-all">
-            <h3 class="ui-state-active ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all ui-tabs">What Clients Say</h3>
-            <div style="padding: 10px">
-                <h2>{{ testimonial.title }}</h2>
-                <p>
-                    {{ testimonial.body|linebreaks }}
-                </p>
-                <p>
-                    - {{ testimonial.left_by.first_name }}, {{ testimonial.town }}
-                </p>
-                <div class="align_left">
-                    <a href="{% url 'testimonials:index' %}" class="button">See More</a>
-                </div>
-            </div>
-        </div>
-        {% endblock %}
-    </div>
-    
+
+{% endif %}
+
     <div id="foot">
         <div>
             <p class="right">&copy;Trinity Williams {% now "Y" %}</p>
@@ -176,5 +76,6 @@
         </div>
     </div>
     </div>
+
 </body>
 </html>

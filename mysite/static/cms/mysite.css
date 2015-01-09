@@ -34,7 +34,8 @@ p.highlight{
 #menu li {
     display: inline;
     float: left;
-    width: 11.1%;
+    /* Set the button width */
+    width: 25%;
 }
 
 #content {
@@ -64,7 +65,7 @@ p.highlight{
 
 #foot {
     position: relative;
-    background-image: url(images/trinity_footer.jpg);
+    background-image: url(/static/mysite/images/trinity_footer.jpg);
     clear: both;
     height: 219px;
     width: 100%;
