@@ -41,21 +41,17 @@ def get_contact(request):
                       form.cleaned_data['message']
             sender = form.cleaned_data['email']
 
-            recipients = ['Trinityrosewilliams@outlook.com']
-            # recipients = ['web-gktVTO@mail-tester.com']
-
             form.save()
 
             print subject
             print message
             print sender
-            print recipients
 
 
             # send_mail(subject, message, sender, recipients)
             msg = EmailMessage(
                 subject, message, settings.SERVER_EMAIL,
-                recipients, [],
+                settings.EMAIL_FORMS['contact'], [],
                 headers={'Reply-To': sender}
             )
 

@@ -26,16 +26,14 @@ def reading(request):
         subject = "Trinity Website 'Request a reading'"
 
         email_inf = EmailInf(subject=subject)
+
         form = ReadingForm(request, request.POST, instance=email_inf)
 
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
 
-            message = "FROM: "+form.cleaned_data['name']+" ("+form.cleaned_data['email']+")\n" + \
-                      "Date: "+form.cleaned_data['requested_date'].strftime("%d/%m/%Y") + "\n" +\
-                      "Time: "+form.cleaned_data['requested_date'].strftime("%H:%M") + "\n" +\
-                      form.cleaned_data['message']
+            message = form.cleaned_data['message']
             sender = form.cleaned_data['email']
 
             # recipients = ['Trinityrosewilliams@outlook.com']
@@ -47,7 +45,7 @@ def reading(request):
             # send_mail(subject, message, sender, recipients)
             msg = EmailMessage(
                 subject, message, settings.SERVER_EMAIL,
-                recipients, [],
+                settings.EMAIL_FORMS['readings'], [],
                 headers={'Reply-To': sender}
             )
 

@@ -10,5 +10,5 @@ urlpatterns = patterns('',
     # ex: /polls/5/results/
     url(r'^(?P<event_id>\d+)/book/$', views.book, name='book'),
     # ex: /polls/5/vote/
-    url(r'^/thankyou/$', views.thankyou, name='thankyou'),
+    url(r'^thankyou/$', views.thankyou, name='thankyou'),
 )

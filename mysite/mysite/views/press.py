@@ -45,7 +45,7 @@ def press(request):
             # send_mail(subject, message, sender, recipients)
             msg = EmailMessage(
                 subject, message, settings.SERVER_EMAIL,
-                recipients, [],
+                settings.EMAIL_FORMS['press'], [],
                 headers={'Reply-To': sender}
             )
 

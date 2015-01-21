@@ -20,8 +20,15 @@ class ReadingForm(forms.ModelForm):
     requested_date = forms.DateTimeField(
         input_formats=['%d/%m/%Y %H:%M', ],
         label="Preferred date and time",
-        help_text="Trinity will confirm the exact time and date in her response.",
+        help_text="We will confirm the exact time and date in the response.",
         required=True
+    )
+
+    reading_type = forms.ChoiceField(
+        choices=(('Telephone Reading', 'Telephone Reading'),
+                 ('Group booking', 'Group booking'),
+                 ('Visit Trinity', 'Visit Trinity')),
+        required=True,
     )
 
     def __init__(self, request, *args, **kwargs):
@@ -37,7 +44,7 @@ class ReadingForm(forms.ModelForm):
 
     class Meta:
         model = EmailInf
-        fields = ['name', 'email', 'confirm_email', 'message', ]
+        fields = ['name', 'email', 'confirm_email', 'requested_date', 'reading_type', 'message', ]
 
     def clean(self):
 
@@ -49,3 +56,11 @@ class ReadingForm(forms.ModelForm):
             )
 
         return self.cleaned_data
+
+    def clean_message(self):
+        data = "FROM: "+self.cleaned_data['name']+" ("+self.cleaned_data['email']+")\n" + \
+            "Date: "+self.cleaned_data['requested_date'].strftime("%d/%m/%Y") + "\n" +\
+            "Time: "+self.cleaned_data['requested_date'].strftime("%H:%M") + "\n" +\
+            "Type: "+self.cleaned_data['reading_type'] + "\n" +\
+            self.cleaned_data['message']
+        return data

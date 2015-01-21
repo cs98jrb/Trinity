@@ -36,6 +36,19 @@ EMAIL_HOST_PASSWORD = 'd/NMf-j,(Nc$bBP8T%>`'
 
 SERVER_EMAIL = 'admin@trinityrosewilliams.co.uk'
 
+#EMAIL_FORMS = {
+#    'contact': ('Trinityrosewilliams@outlook.com',),
+#    'readings': ('Trinityrosewilliams@outlook.com',),
+#    'press': ('angela@fluidmarketing.com',),
+#}
+
+EMAIL_FORMS = {
+    'contact': ('cs98jrb@gmail.com',),
+    'readings': ('cs98jrb@gmail.com',),
+    'press': ('cs98jrb@gmail.com',),
+}
+
+
 ALLOWED_HOSTS = ['mysite','127.0.0.1:8000']
 
 # Application definition

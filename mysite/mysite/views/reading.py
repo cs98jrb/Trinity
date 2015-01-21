@@ -33,15 +33,12 @@ def reading(request):
                       form.cleaned_data['message']
             sender = form.cleaned_data['email']
 
-            recipients = ['Trinityrosewilliams@outlook.com']
-            # recipients = ['web-gktVTO@mail-tester.com']
-
             form.save()
 
             # send_mail(subject, message, sender, recipients)
             msg = EmailMessage(
                 subject, message, settings.SERVER_EMAIL,
-                recipients, [],
+                settings.EMAIL_FORMS['readings'], [],
                 headers={'Reply-To': sender}
             )
 
