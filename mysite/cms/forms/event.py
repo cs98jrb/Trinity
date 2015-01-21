@@ -10,7 +10,7 @@ from events.models import Booking, Event
 from orders.models import Order, OrderItem
 
 
-class update_event(forms.ModelForm):
+class UpdateEvent(forms.ModelForm):
     # set the css of required fields
     required_css_class = 'required'
 

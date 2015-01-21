@@ -11,6 +11,8 @@ from orders.models import OrderItem
 from system_emails.models import EmailText
 from orders.models import Vat
 
+from ckeditor.fields import RichTextField
+
 class Venue(models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=200)
@@ -36,7 +38,7 @@ class Venue(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField()
+    description = RichTextField()
     venue = models.ForeignKey(Venue)
     capacity = models.IntegerField(default=0)
     event_time = models.DateTimeField()

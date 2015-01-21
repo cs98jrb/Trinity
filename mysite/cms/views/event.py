@@ -15,6 +15,8 @@ from events.models import Event
 
 from events.forms import BookingForm
 
+from cms.forms  import UpdateEvent
+
 
 def index(request):
     return render(request, 'cms/index.html')
@@ -30,15 +32,21 @@ def events(request):
 
 def event_detail(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
-    if event.pricing_set.all().filter(online_book=True)\
-            and not event.fully_booked:
-        booking = True
-    else:
-        booking = False
 
-    return render(request, 'events/detail.html', {
+    if request.POST:
+        form = UpdateEvent(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+
+            # If the save was successful, redirect to another page
+            redirect_url = reverse('cms:event_detail', kwargs={'event_id': event_id})
+            return HttpResponseRedirect(redirect_url)
+
+    else:
+        form = UpdateEvent(instance=event)
+
+    return render(request, 'cms/event_detail.html', {
         'event': event,
-        'bookable': booking,
         'request': request,
-        'form': BookingForm(request),
+        'form': form,
     })

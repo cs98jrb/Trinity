@@ -62,4 +62,7 @@ urlpatterns = patterns('django.contrib.flatpages.views',
 
     #Flat pages
     (r'^pages/', include('django.contrib.flatpages.urls')),
+
+    #
+    (r'^ckeditor/', include('ckeditor.urls')),
 )

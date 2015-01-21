@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['mysite','127.0.0.1:8000']
 # Application definition
 
 INSTALLED_APPS = (
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -117,6 +118,8 @@ STATICFILES_DIRS = (
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR+'/media/'
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
 # Paypal options
 PAYPAL_MODE = 'sandbox' # sandbox or live

@@ -15,7 +15,7 @@ class BookingForm(forms.ModelForm):
     required_css_class = 'required'
     email = forms.EmailField(
         max_length=254,
-        label="Contact email",
+        label="Email address",
         required=True,
         help_text="This is required so we can contact you."
     )
