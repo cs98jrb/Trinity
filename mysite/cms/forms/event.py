@@ -13,6 +13,9 @@ from orders.models import Order, OrderItem
 class UpdateEvent(forms.ModelForm):
     # set the css of required fields
     required_css_class = 'required'
+    event_time = forms.DateTimeField(widget=forms.SplitDateTimeWidget)
+    book_from = forms.DateTimeField(widget=forms.SplitDateTimeWidget)
+    last_booking = forms.DateTimeField(widget=forms.SplitDateTimeWidget)
 
     class Meta:
         model = Event
