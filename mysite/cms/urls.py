@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # ex: /events/
     url(r'^events/$', views.events, name='events'),
     # ex: /events/5/
+    url(r'^events/new/$', views.event_add, name='event_add'),
     url(r'^events/(?P<event_id>\d+)/$', views.event_detail, name='event_detail'),
     # ex: /events/5/
     url(r'^flatpage/(?P<page_url>\w+)/$', views.flatpage_detail, name='flatpage_detail'),

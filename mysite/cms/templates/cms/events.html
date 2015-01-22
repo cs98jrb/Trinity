@@ -2,7 +2,6 @@
 {% block content %}
 <h2>Event list</h2>
 {% if event_list %}
-{% if event_list %}
     <ul>
     {% for event in event_list %}
     <li><p itemscope itemtype="http://schema.org/Event">
@@ -17,9 +16,6 @@
     </p></li>
     {% endfor %}
     </ul>
-{% else %}
-    <p>There are no scheduled events.</p>
-{% endif %}
 {% else %}
     <p>There are no scheduled events.</p>
 {% endif %}

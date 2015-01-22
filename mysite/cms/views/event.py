@@ -15,7 +15,7 @@ from events.models import Event
 
 from events.forms import BookingForm
 
-from cms.forms  import UpdateEvent
+from cms.forms import UpdateEvent
 
 
 def index(request):
@@ -33,20 +33,65 @@ def events(request):
 def event_detail(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
 
+    if 'status_form_event' in request.session:
+        status = request.session['status_form_event']
+        del request.session['status_form_event']
+    else:
+        status = False
+
     if request.POST:
         form = UpdateEvent(request.POST, instance=event)
         if form.is_valid():
             form.save()
 
             # If the save was successful, redirect to another page
-            redirect_url = reverse('cms:event_detail', kwargs={'event_id': event_id})
+            request.session['status_form_event'] = 'Updated'
+            redirect_url = reverse('cms:event_detail', kwargs={
+                'event_id': event_id
+            })
             return HttpResponseRedirect(redirect_url)
+
+        else:
+            status = "Update Failed check the form."
 
     else:
         form = UpdateEvent(instance=event)
 
     return render(request, 'cms/event_detail.html', {
+        'status': status,
         'event': event,
+        'request': request,
+        'form': form,
+    })
+
+def event_add(request):
+    if 'status_form_event' in request.session:
+        status = request.session['status_form_event']
+        del request.session['status_form_event']
+    else:
+        status = False
+
+    if request.POST:
+        form = UpdateEvent(request.POST)
+        if form.is_valid():
+            event = form.save()
+
+            # If the save was successful, redirect to another page
+            request.session['status_form_event'] = 'Updated'
+            redirect_url = reverse('cms:event_detail', kwargs={
+                'event_id': event.pk
+            })
+            return HttpResponseRedirect(redirect_url)
+
+        else:
+            status = "Update Failed check the form."
+
+    else:
+        form = UpdateEvent()
+
+    return render(request, 'cms/event_detail.html', {
+        'status': status,
+        'event': False,
         'request': request,
         'form': form,
     })

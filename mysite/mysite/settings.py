@@ -134,6 +134,13 @@ MEDIA_ROOT = BASE_DIR+'/media/'
 
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_CONFIGS = {
+    "default": {
+        "removePlugins": "stylesheetparser",
+        "allowedContent": True,
+        "width": "500px",
+    }
+}
 
 # Paypal options
 PAYPAL_MODE = 'sandbox' # sandbox or live

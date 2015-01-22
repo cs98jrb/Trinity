@@ -51,7 +51,7 @@
 {% else %}
     <div id="menu" class="menu">
         <ul id="menu_options" class="menu">
-            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'home page' %}">Home</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'cms:flatpage_detail' 'home'%}">Home</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'cms:events' %}">Events</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'blog' %}">Blog</a></li>
             <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'accounts:logout' %}">log out</a></li>

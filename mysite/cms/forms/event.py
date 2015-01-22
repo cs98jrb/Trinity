@@ -5,9 +5,14 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 
-from events.models import Booking, Event
+from events.models import Venue, Event
 
 from orders.models import Order, OrderItem
+
+
+class updateVenue(forms.ModelForm):
+    class Meta:
+        model = Venue
 
 
 class UpdateEvent(forms.ModelForm):

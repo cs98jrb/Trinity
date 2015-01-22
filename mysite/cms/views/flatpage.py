@@ -35,7 +35,8 @@ def flatpage_detail(request, page_url):
     else:
         form = UpdateFlatPage(instance=event)
 
-    return render(request, 'cms/event_detail.html', {
+    return render(request, 'cms/flatpage.html', {
+        'page_url': page_url,
         'event': event,
         'request': request,
         'form': form,
