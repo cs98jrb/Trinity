@@ -1,0 +1,40 @@
+{% extends "cms/base.html" %}
+{% load staticfiles %}
+{% block title %}
+    Bookings - {{ event.title }}
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static "table-sorter/themes/blue/style.css" %}">
+    <script src="{% static "table-sorter/jquery.tablesorter.min.js" %}"></script>
+    <script>
+        $(function() {
+            $('#bookings').tablesorter({widgets: ['zebra']});
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+<div>
+<h2>{{ event.title }}</h2>
+    <table id="bookings" class="tablesorter" style="width: 95%;margin: auto">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>Ref</th>
+                <th>Num booked</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for booking in bookings %}
+            <tr>
+                <td>{{ booking.booked_by }}</td>
+                <td>{{ booking.ref }}</td>
+                <td>{{ booking.quantity }}</td>
+            </tr>
+    {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

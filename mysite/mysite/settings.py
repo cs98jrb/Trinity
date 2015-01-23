@@ -138,7 +138,7 @@ CKEDITOR_CONFIGS = {
     "default": {
         "removePlugins": "stylesheetparser",
         "allowedContent": True,
-        "width": "500px",
+        "width": "99%",
     }
 }
 

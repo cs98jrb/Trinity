@@ -15,8 +15,15 @@ urlpatterns = patterns('django.contrib.flatpages.views',
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     # url(r'^$', views.IndexView.as_view(), name='home page'),
+
+    # Flat Pages
     url(r'^$', 'flatpage', {'url': 'home/'}, name='home page'),
-    url(r'^about/', views.about, name='about'),
+    url(r'^about/$', 'flatpage', {'url': 'about/'}, name='about'),
+    url(r'^serenity_centre/$', 'flatpage', {'url': 'serenity_centre/'}, name='serenity_centre'),
+
+    # url(r'^about/', views.about, name='about'),
+
+    # url(r'^serenity_centre/', views.serenity, name='serenity_centre'),
 
     # Event system
     url(r'^events/', include('events.urls', namespace="events")),
@@ -30,7 +37,6 @@ urlpatterns = patterns('django.contrib.flatpages.views',
     url(r'^readings/', include('readings.urls', namespace='readings')),
     url(r'^books/', views.book, name='books'),
     url(r'^press/', views.press, name='press'),
-    url(r'^serenity_centre/', views.serenity, name='serenity_centre'),
     url(r'^blog/', views.coming_soon, name='blog'),
 
     # the contact form.

@@ -1,7 +1,12 @@
 {% extends "cms/base.html" %}
-{% block title %}
-    {{ event.title }}
-{% endblock %}
+
+    {% block title %}
+        {% if event %}
+            {{  event.title }}
+        {% else %}
+            New Event
+        {% endif %}
+    {% endblock %}
 {% block extra_head %}
     <style>
       #map-canvas {
@@ -49,6 +54,8 @@
         $("#form_state").click(function(){
             $(this).hide();
         });
+
+        $("#add_venue").insertAfter("#id_venue");
       });
     </script>
 
@@ -58,16 +65,14 @@
         <div id="form_state" style="background-color: #cc6699"><h2 style="text-align: center;padding: 10px; color: #000000">{{ status }}</h2></div>
     {% endif %}
 {% if event %}
-<div itemscope itemtype="http://schema.org/Event">
-<h2 itemprop="name">{{ event.title }}</h2>
-    <h2>{{ event.event_time|date:"l jS F Y | fA" }}</h2> <meta itemprop="startDate" content="{{ event.event_time|date:"c"}}">
-    <h4><span itemprop="location" itemscope itemtype="http://schema.org/Place">
-            <span itemprop="name">{{ event.venue.name}}</span>,
-            <span itemprop="address" itemscope itemtype="http://schema.org/PostalAddress">
-                <span itemprop="addressLocality">{{ event.venue.town}}</span>
-                <span itemprop="postalCode">{{ event.venue.postcode}}</span>{% if event.venue.lat %} <a href="#map-canvas">map</a>{% endif %}
-            </span>
-        </span></h4>
+<div>
+<h2>{{ event.title }}</h2>
+    <h2>{{ event.event_time|date:"l jS F Y | fA" }}</h2>
+    <h4>
+        {{ event.venue.name}},
+        {{ event.venue.town}}
+        {{ event.venue.postcode}}
+        {% if event.venue.lat %} <a href="#map-canvas">map</a>{% endif %}</h4>
 <div>
     <p>
         {{ event.description|safe }}
@@ -77,9 +82,9 @@
     {% if event.pricing_set %}
         {% for price in event.pricing_set.all %}
             {% if price.online_book %}
-            <li itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <li>
                 <p>{{ price.title }}
-                    <span itemprop="priceCurrency" content="GBP">&pound;</span><span itemprop="price" content="{{ price.value_inc }}">{{ price.value_inc }}</span></p>
+                    <span>&pound;</span><span>{{ price.value_inc }}</span></p>
             </li>
             {% else %}
             <li><p>{{ price|safe }}</p></li>
@@ -92,22 +97,27 @@
     <form action="{% url 'cms:event_detail' event.id %}" method="post">
 {% else %}
     <form action="{% url 'cms:event_add' %}" method="post">
+    <h2>New Event</h2>
 {% endif %}
-
+<span id="add_venue"> <a class="button" href="{% url 'cms:venue_add' %}" target="_blank">New Venue</a> </span>
     {% csrf_token %}
     <table style="width: 95%;margin: auto">
     {{ form.media }}
 
     {{ form.as_table }}
+
+    {{ priceing.management_form }}
+    {% for price in priceing %}
+        {{ price.as_table }}
+    {% endfor %}
+
         <tr>
  {% if event %}
             <td colspan="2" style="text-align: center;">
-                <p class="tandc">By booking you are agreeing to our <a href="{% url 'tandc' %}">terms and conditions.</a> An account will be created to link your booking to the payment.</p>
                 <p><input class="button" type="submit" value="Update" /></p>
             </td>
 {% else %}
              <td colspan="2" style="text-align: center;">
-                <p class="tandc">By booking you are agreeing to our <a href="{% url 'tandc' %}">terms and conditions.</a> An account will be created to link your booking to the payment.</p>
                 <p><input class="button" type="submit" value="Add" /></p>
             </td>
 {% endif %}
