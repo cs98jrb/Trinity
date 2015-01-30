@@ -1,0 +1,38 @@
+[{"fields": {"domain": "example.com", "name": "example.com"}, "model": "sites.site", "pk": 1},
+{
+	"fields":{
+		"registration_required": false,
+		"title": "Trinity Williams",
+		"url": "/home/",
+		"template_name": "",
+		"sites": [1],
+		"content": "<div itemscope itemtype=\"http://schema.org/Person\">\r\n<img class=\"text_wrap\" itemprop=\"image\" src=\"/static/mysite/images/trinity.png\" alt=\"Trinity Williams\"/>\r\n<img src=\"/static/mysite/images/welcome.png\" alt=\"Welcome\"/>\r\n<p>My name is <span itemprop=\"name\">Trinity Williams</span>, and I am a <span itemprop=\"jobTitle\">spiritual-medium</span> who has helped so many people find the light when they could see only the darkness in their lives.</p>\r\n<p>Understanding that there is life after death and connecting the two worlds is my calling in life.</p>\r\n<ul>\r\n    <li>Have you lost a loved one with whom you would like to contact?</li>\r\n    <li>Do you feel lost and would you like to connect with someone close who has passed away?</li>\r\n    <li>Do you believe in life after death?</li>\r\n</ul>\r\n<p>If you would like to know more come along and see me at one of my events - to see the dates just <a href=\"events\">click here</a>, or you can contact me to book a one to one or group reading by <a href=\"readings\">clicking here</a>.</p>\r\n<p>Contacting the spirit world and your loved ones is not frightening and there is nothing for you to be afraid of \u2013 it is simply your loved ones bringing you love, reassurance and validation that there is life after death and that they are safe and watching over you.</p>\r\n</div>",
+		"enable_comments": false
+	},
+	"model": "flatpages.flatpage",
+	"pk": 1
+},{
+	"fields": {
+		"registration_required": false,
+		"title": "About Trinity",
+		"url": "/about/",
+		"template_name": "",
+		"sites": [1],
+		"content": "<h2>About Trinity</h2>\r\n<p>My early life was full of hardship. There were good times, but life was often dark and I felt I had no escape. I had no idea that there was a spirit world.</p>\r\n<p>When life got too much I would sometimes go to church to seek comfort, answers, and to simply gain the strength to go on. I heard only about a vengeful God. I thought this life was reality and it would be short lived and hard. I was scared of death and as I grew up I strived to achieve and find my happiness in material things \u2013 I sought success, to own a bigger house and a bigger car. When I didn\u2019t achieve I felt empty and that I was a failure.</p>\r\n<p>At the age of 44 a very close family member became addicted to substances. I was on the verge of a nervous breakdown, crying all the time, I couldn\u2019t work and I just wanted to die. My Granddad whom I was so close to in life came to me in a dream and told me I must go to a spiritual church. Under normal circumstances I would never have had anything to do with spirits and I was terrified of ghosts! However, because I trusted my Granddad\u00a0and\u00a0the dream had been so real, I felt I just had to go.</p>\r\n<p>I found out where the nearest spiritualist church was and went that Sunday - I was terrified! I needn\u2019t have worried it was a welcoming atmosphere and the medium came directly to me in the service and gave me messages from my Nan and Granddad, things she could not possibly of known. She told me they said everything would be okay and that the addiction would pass in time. I cannot tell you the relief and strength these messages gave me \u2013 I left the church feeling like a new person.</p>\r\n<p>Through my experiences I discovered I myself had the gift of communication with the spirit world and this led me to help others. I know what a dark place the world can seem and also the light that is waiting for each of us if we just reach out. I am the bridge to loved ones and showing people that this world is not the end and that love and peace are what is intended for us all.</p>",
+		"enable_comments": false
+	},
+	"model": "flatpages.flatpage",
+	"pk": 2
+},{
+	"fields": {
+		"registration_required": false,
+		"title": "Serenity Centre",
+		"url": "/serenity_centre/",
+		"template_name": "",
+		"sites": [1],
+		"content": "<div style=\"text-align: center\"><img src=\"/static/mysite/images/serenity.png\" %}\" alt=\"Confusion image\"></div>\r\n    <h2>If any of these words reflect your life we are here to help</h2>\r\n    <div class=\"float-left\" style=\"width: 400px;display: inline-block; vertical-align: top\">\r\n        <p>The Serenity Center brings knowledge and understanding of the spirit world and offers you support, comfort and peace of mind.</p>\r\n        <p>No booking required and everyone is welcome. Tea & coffee are provided.</p>\r\n    </div>\r\n    <iframe class=\"float-left\" src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2419.9979641163663!2d-3.1470047500000002!3d52.66001435!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487000a08c7f5dcd%3A0x8d307317b35072a4!2sWelshpool%2C+Powys+SY21+7DL!5e0!3m2!1sen!2suk!4v1418644126559\" width=\"400\" height=\"400\" frameborder=\"0\" style=\"border:0\"></iframe>",
+		"enable_comments": false
+	},
+	"model": "flatpages.flatpage",
+	"pk": 3
+}]

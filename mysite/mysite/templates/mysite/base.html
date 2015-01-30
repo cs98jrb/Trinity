@@ -1,7 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
 {% load staticfiles %}
+    <meta property="og:title" content="About Our Company"/>
+    <meta property="og:type" content="article"/>
+    <meta property="og:url" content="http://www.mysite.com/article/"/>
+    <meta property="og:image" content="http://www.mysite.com/articleimage.jpg"/>
+    <meta property="og:site_name" content="My Company Name"/>
+    <meta property="fb:app_id" content="1234567890987654321"/>
+    <meta property="og:description" content="A description of our services and company profile."/>
+
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{% static "jquery_ui/jquery-ui.min.css" %}" />
     <link rel="stylesheet" href="{% static "mysite/mysite.css" %}" />
@@ -29,9 +39,10 @@
                  altFormat: "DD, d MM, yy"
              });
             $("tr.required").find("th:last").append(" * ");
-            $('<span class="ui-icon ui-icon-help" style="display:inline-block"></span>').insertBefore($("span.helptext").prev());
-            $("span.helptext").hide();
-            $("span.helptext").prev().prev().click(
+            var helpText = $("span.helptext");
+            $('<span class="ui-icon ui-icon-help" style="display:inline-block"></span>').insertBefore(helpText.prev());
+            helpText.hide();
+            helpText.prev().prev().click(
                     function () {
                         $(this).next().next().toggle("fade", "slow");
                     }
@@ -42,6 +53,23 @@
 </head>
 
 <body>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '760894853989260',
+      xfbml      : true,
+      version    : 'v2.2'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
 {% load cookie_consent_tags %}
 {% if request|cookie_group_accepted:"track" %}
     <script>

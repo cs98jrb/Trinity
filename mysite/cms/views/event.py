@@ -1,5 +1,6 @@
 import string
 import random
+from datetime import datetime, timedelta
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -9,6 +10,9 @@ from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django.utils import timezone
 from django.contrib import messages
 from django.conf import settings
+
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.contrib.auth.decorators import permission_required
 
 from accounts.models import AuthUser
 
@@ -22,19 +26,20 @@ from cms.forms import UpdateEvent
 def index(request):
     return render(request, 'cms/index.html')
 
-
+@permission_required('events.change_event', login_url=reverse_lazy('cms:login'))
 def events(request):
-    event_list = Event.objects.all()
+    time_threshold = datetime.now() - timedelta(days=5)
+    event_list = Event.objects.filter(event_time__gt=time_threshold)
 
     return render(request, 'cms/events.html', {
         'event_list': event_list,
     })
 
-
+@permission_required('events.change_event', login_url=reverse_lazy('cms:login'))
 def event_report(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
 
-    bookings = event.booking_set.all()
+    bookings = event.booking_set.filter(confirmed=True)
 
 
 
@@ -43,7 +48,7 @@ def event_report(request, event_id):
         'bookings': bookings,
     })
 
-
+@permission_required('events.change_event', login_url=reverse_lazy('cms:login'))
 def event_detail(request, event_id):
     event = get_object_or_404(Event, pk=event_id)
     PriceInlineForm = inlineformset_factory(Event, Pricing.event.through, extra=1)
@@ -89,6 +94,7 @@ def event_detail(request, event_id):
         'priceing': formset,
     })
 
+@permission_required('events.change_event', login_url=reverse_lazy('cms:login'))
 def event_add(request):
     if 'status_form_event' in request.session:
         status = request.session['status_form_event']

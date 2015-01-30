@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, url
 
 from cms import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = patterns('',
     # ex: /events/
@@ -19,8 +20,8 @@ urlpatterns = patterns('',
 
     # ex: /events/5/
     url(r'^flatpage/(?P<page_url>\w+)/$', views.flatpage_detail, name='flatpage_detail'),
-    # ex: /polls/5/results/
-    # url(r'^(?P<event_id>\d+)/book/$', views.book, name='book'),
-    # ex: /polls/5/vote/
-    # url(r'^/thankyou/$', views.thankyou, name='thankyou'),
+
+
+    url(r'^login/$', auth_views.login, {'template_name': 'cms/login.html'}, name='login'),
+    url(r'^logout/$', auth_views.logout, {'template_name': 'cms/logged_out.html'}, name='logout'),
 )

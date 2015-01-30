@@ -2,7 +2,9 @@ import string
 import random
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, reverse_lazy
+
+from django.contrib.auth.decorators import permission_required
 from django.core.exceptions import ValidationError, ObjectDoesNotExist
 # from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -15,7 +17,7 @@ from events.models import Venue
 
 from cms.forms import UpdateVenue
 
-
+@permission_required('events.change_venue', login_url=reverse_lazy('cms:login'))
 def venue_detail(request, venue_id):
     venue = get_object_or_404(Venue, pk=venue_id)
 
@@ -51,6 +53,7 @@ def venue_detail(request, venue_id):
     })
 
 
+@permission_required('events.change_venue', login_url=reverse_lazy('cms:login'))
 def venue_add(request):
     if 'status_form_event' in request.session:
         status = request.session['status_form_event']
