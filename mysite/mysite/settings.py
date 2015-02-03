@@ -163,6 +163,9 @@ VAT_REGISTERED = False
 # Settings for django.contrib.sites.
 SITE_ID = 1
 
+# COOKIE_CONSENT_OPT_OUT
+COOKIE_CONSENT_OPT_OUT = False;
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     "django.core.context_processors.request",

@@ -65,6 +65,7 @@ urlpatterns = patterns('django.contrib.flatpages.views',
     url(r'^googlec35559684fb6219b.html', views.google),
 
     #cookie
+    url(r'^accept_cookies/', views.accept_all_cookies, name='accept_cookies'),
     url(r'^cookies/', include('cookie_consent.urls')),
 
     #Flat pages

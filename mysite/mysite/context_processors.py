@@ -16,7 +16,7 @@ def event_list(request):
 
 def test_list(request):
     testimonial_list = Testimonial.objects.filter(
-        hompage = True
+        hompage=True
     )
 
     if len(testimonial_list) > 0:

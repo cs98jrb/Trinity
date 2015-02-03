@@ -7,3 +7,4 @@ from press import press
 from about import about
 from book import book
 from tandc import tandc, privacy_policy
+from cookies import accept_all_cookies
