@@ -29,12 +29,13 @@ TEMPLATE_DEBUG = True
 
 ADMINS = (('James', 'james@pjshire.me.uk'),)
 
-EMAIL_HOST = 'mail.trinityrosewilliams.co.uk'
-#EMAIL_HOST = 'mail.pjshire.me.uk'
-EMAIL_HOST_USER = 'admin@trinitywilliams.co.uk'
-EMAIL_HOST_PASSWORD = 'd/NMf-j,(Nc$bBP8T%>`'   
+EMAIL_HOST = 'mail.teetimes4you.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'admin@trinityrosewilliams.co.uk'
+EMAIL_HOST_PASSWORD = ':^H%9qIM@el:G_|_?v6@Zls=P'
 
-SERVER_EMAIL = 'admin@trinityrosewilliams.co.uk'
+# SERVER_EMAIL = 'admin@trinityrosewilliams.co.uk'
+SERVER_EMAIL = 'james@pjshire.me.uk'
 
 #EMAIL_FORMS = {
 #    'contact': ('Trinityrosewilliams@outlook.com',),
@@ -74,6 +75,7 @@ INSTALLED_APPS = (
     'testimonials',
     'readings',
     'cms',
+    'donations',
 )
 
 MIDDLEWARE_CLASSES = (

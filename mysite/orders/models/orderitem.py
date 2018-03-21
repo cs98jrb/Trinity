@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
@@ -24,10 +25,13 @@ class OrderItem(models.Model):
         self.content_object.delete()
 
     def __unicode__(self):  # __unicode__ on Python 2
-        return self.description + " &pound;" + '%.2f' % self.value
+        # return self.description + " &pound;" + '%.2f' % self.value
+        return u"%s £%.2f" % (self.description, self.value)
 
 
 from django.shortcuts import get_object_or_404
+
+
 # setup delete related objects
 def del_content_object(sender, instance, *args, **kwargs):
     print(instance.content_object)

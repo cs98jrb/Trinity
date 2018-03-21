@@ -39,11 +39,13 @@
         });
     </script>
 {% block extra_head %}{% endblock %}
+
+    <link rel="stylesheet" href="{% static "mysite/mysite_print.css" %}" type="text/css" media="print" />
 </head>
 
 <body>
     <div id="page_wrap">
-    <div>
+    <div id="admin_head">
         <h1>Site Admin</h1>
     </div>
     <div id="menu" class="menu">
@@ -53,6 +55,8 @@
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'cms:flatpage_detail' 'serenity_centre'%}">Serenity Center</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'cms:events' %}">Events</a></li>
             <li class="menu"><a style="width: 100%" class="menu" href="{% url 'blog' %}">Blog</a></li>
+            <li class="menu"><a style="width: 100%" class="menu" href="{% url 'cms:flatpage_detail' 'books'%}">Books</a></li>
+
             {% if user.is_authenticated %}
             <li class="menu"><a style="width: 99%" class="menu"  href="{% url 'cms:logout' %}">log out</a></li>
             {% else %}

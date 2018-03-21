@@ -5,6 +5,7 @@
 <head>
 {% load staticfiles %}
 {% load cookie_consent_tags %}
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta property="og:title" content="About Our Company"/>
     <meta property="og:type" content="article"/>
     <meta property="og:url" content="http://www.mysite.com/article/"/>
@@ -52,12 +53,8 @@
             $( "#cookies_add" ).dialog({
               resizable: false,
               width: '1250px',
-              position: { my: "center top", at: "center top", of: window },
-              buttons: {
-                "I understand": function() {
-                  $( this ).dialog( "close" );
-                }
-              }
+              height: 95,
+              position: { my: "center top", at: "center top", of: window }
             });
             $.get("/accept_cookies/");
 {% endif %}
@@ -137,7 +134,7 @@
     <div id="content">
     {% if not request|cookie_group_declined:"track" and not request|cookie_group_accepted:"track" %}
         <div id="cookies_add" title="Cookie Info">
-            <p>This site requires cookies to work correctly. It also uses optional cookies to help improve the service. By continueing to use the site we assume you accept all cookies. You can change your preference on the <a href="/cookies">cookie policy</a> page.</p>
+            <p>This site uses cookies to provide you with a great user experience. By using the site, you agree to our <a href="/cookies">cookie policy</a>.</p>
         </div>
     {% endif %}
         {% block content %}

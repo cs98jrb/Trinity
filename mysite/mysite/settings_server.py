@@ -32,7 +32,7 @@ ADMINS = (('James', 'james@pjshire.me.uk'),)
 EMAIL_HOST = 'mail.trinityrosewilliams.co.uk'
 #EMAIL_HOST = 'mail.pjshire.me.uk'
 EMAIL_HOST_USER = 'admin@trinitywilliams.co.uk'
-EMAIL_HOST_PASSWORD = 'd/NMf-j,(Nc$bBP8T%>`'
+EMAIL_HOST_PASSWORD = 'd/Nmf-j,(Nc$bBP8T%>`'
 
 SERVER_EMAIL = 'admin@trinityrosewilliams.co.uk'
 

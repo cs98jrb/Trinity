@@ -1,0 +1,21 @@
+{% extends "mysite/base.html" %}
+{% block content %}
+    <h2>Donation</h2>
+    <p>Thank you for wanting to make a donation, please fill out the form below:</p>
+
+<form action="{% url 'donations:make' %}" method="post">
+    {% csrf_token %}
+    {{ form.quantity.errors }}
+    {{ form.quantity.label_tag }}
+    {{ form.quantity }}
+
+    <table style="width: 95%;margin: auto">
+    {{ form.as_table }}
+    </table>
+    <p>
+        <input class="button" type="submit" value="Make Donation" />
+        <a href="{% url 'tandc' %}"  target="_blank">Terms and conditions</a>
+    </p>
+</form>
+
+{% endblock %}

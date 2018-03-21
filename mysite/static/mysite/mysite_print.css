@@ -1,0 +1,35 @@
+@page { margin: 2cm }
+#admin_head{
+    display: none;
+}
+#menu {
+	display: none;
+}
+#foot {
+	display: none;
+}
+#content {
+	width: 100%;
+
+}
+#page_wrap{
+    width: 100%
+}
+#content {
+	width: 100%;
+    margin: 0;
+}
+
+body{
+    font-size: 12pt;
+    font-family: calibri,'Open Sans', Helvetica,Arial,sans-serif;
+}
+
+table.tablesorter{
+    font-size: 12pt;
+    font-family: calibri,'Open Sans', Helvetica,Arial,sans-serif;
+}
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+    font-size: 12pt;
+}

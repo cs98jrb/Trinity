@@ -28,8 +28,11 @@ urlpatterns = patterns('django.contrib.flatpages.views',
     # Event system
     url(r'^events/', include('events.urls', namespace="events")),
 
-    # Event system
+    # Order system
     url(r'^order/', include('orders.urls', namespace="orders")),
+
+    # Donations system
+    url(r'^donations/', include('donations.urls', namespace="donations")),
 
     # Holding pages
     url(r'^terms/', views.tandc, name='tandc'),
@@ -69,8 +72,7 @@ urlpatterns = patterns('django.contrib.flatpages.views',
     url(r'^cookies/', include('cookie_consent.urls')),
 
     #Flat pages
-    (r'^pages/', include('django.contrib.flatpages.urls')),
+    url(r'^pages/', include('django.contrib.flatpages.urls')),
 
-    #
-    (r'^ckeditor/', include('ckeditor.urls')),
-)  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    url(r'^ckeditor/', include('ckeditor.urls')),
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
